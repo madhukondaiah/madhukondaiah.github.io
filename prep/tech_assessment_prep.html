@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Assessment Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d47;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --green: #10b981;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --text: #f0f4ff;
+    --text2: #8fa8c8;
+    --text3: #4a6080;
+    --mono: 'JetBrains Mono', monospace;
+    --head: 'Syne', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,13,20,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0; padding: 0 2rem; }
+  .nav-brand { font-family: var(--head); font-weight: 800; font-size: 1rem; color: var(--accent); padding: 1rem 1.5rem 1rem 0; border-right: 1px solid var(--border); margin-right: 1rem; letter-spacing: -0.5px; white-space: nowrap; }
+  .nav-tabs { display: flex; gap: 0; overflow-x: auto; }
+  .nav-tab { padding: 1rem 1.25rem; font-size: 0.8rem; font-weight: 500; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; background: none; border-left: none; border-right: none; border-top: none; font-family: var(--body); }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-badge { background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 999px; margin-left: 6px; font-family: var(--mono); }
+
+  /* PAGES */
+  .page { display: none; min-height: calc(100vh - 57px); }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { padding: 3rem 2rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); color: var(--accent2); font-size: 0.7rem; font-family: var(--mono); padding: 5px 12px; border-radius: 999px; margin-bottom: 1.25rem; letter-spacing: 1px; text-transform: uppercase; }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  h1 { font-family: var(--head); font-size: 3rem; font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 1rem; }
+  h1 span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { color: var(--text2); font-size: 1rem; line-height: 1.7; max-width: 600px; margin-bottom: 2rem; }
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; margin-bottom: 2rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .stat-num { font-family: var(--head); font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--text2); margin-top: 4px; }
+
+  /* SECTION CONTAINER */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  /* SECTION TITLE */
+  .section-title { font-family: var(--head); font-size: 1.6rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 0.4rem; }
+  .section-sub { color: var(--text2); font-size: 0.85rem; margin-bottom: 2rem; }
+
+  /* TIPS PAGE */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 16px; margin-bottom: 2rem; }
+  .tip-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; position: relative; overflow: hidden; }
+  .tip-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .tip-card.blue::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .tip-card.green::before { background: linear-gradient(90deg, var(--green), #34d399); }
+  .tip-card.amber::before { background: linear-gradient(90deg, var(--amber), #fbbf24); }
+  .tip-card.purple::before { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+  .tip-card.red::before { background: linear-gradient(90deg, var(--red), #f87171); }
+  .tip-card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .tip-card-title { font-family: var(--head); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .tip-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tip-list li { font-size: 0.82rem; color: var(--text2); line-height: 1.6; padding-left: 18px; position: relative; }
+  .tip-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .tip-list li strong { color: var(--text); font-weight: 500; }
+  .mnemonic-box { background: rgba(59,130,246,0.07); border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 1rem; margin-top: 10px; }
+  .mnemonic-box code { font-family: var(--mono); color: var(--accent2); font-size: 0.8rem; display: block; margin-bottom: 4px; }
+  .mnemonic-box p { font-size: 0.78rem; color: var(--text2); }
+  .priority-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .priority-table th { text-align: left; padding: 8px 12px; color: var(--text2); font-weight: 500; border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .priority-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .priority-table tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.7rem; font-weight: 600; font-family: var(--mono); }
+  .pill-high { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .pill-med { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .pill-low { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+
+  /* CHEATSHEET */
+  .cs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 16px; }
+  .cs-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .cs-header { padding: 1rem 1.25rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
+  .cs-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .cs-title { font-family: var(--head); font-size: 0.95rem; font-weight: 700; }
+  .cs-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 10px; }
+  .cs-item { }
+  .cs-item-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); font-family: var(--mono); margin-bottom: 4px; }
+  .cs-item-text { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+  .cs-item-text strong { color: var(--text); font-weight: 500; }
+  pre, code { font-family: var(--mono); }
+  .code-block { background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 0.75rem; color: #a5d8ff; line-height: 1.8; overflow-x: auto; margin-top: 4px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tag { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: var(--accent2); font-size: 0.7rem; padding: 3px 9px; border-radius: 6px; font-family: var(--mono); }
+  .tag.green { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.25); color: #6ee7b7; }
+  .tag.amber { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.25); color: #fcd34d; }
+  .tag.purple { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.25); color: #c4b5fd; }
+  .tag.red { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.2); color: #fca5a5; }
+  .divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* MCQ TEST */
+  .test-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 2rem; }
+  .select-box { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-family: var(--body); cursor: pointer; }
+  .btn { padding: 9px 20px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; cursor: pointer; font-family: var(--body); transition: all 0.15s; border: none; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text2); }
+  .btn-outline:hover { background: var(--surface2); color: var(--text); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: #059669; }
+  .btn-red { background: var(--red); color: #fff; }
+  .timer-box { margin-left: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-family: var(--mono); font-size: 0.9rem; color: var(--accent2); display: flex; align-items: center; gap: 8px; }
+  .timer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1s infinite; }
+  .timer-dot.warn { background: var(--amber); }
+  .timer-dot.danger { background: var(--red); }
+  .progress-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 16px; }
+  .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; }
+  .progress-bar { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.4s; }
+  .progress-label { font-family: var(--mono); font-size: 0.8rem; color: var(--text2); white-space: nowrap; }
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; margin-bottom: 1rem; }
+  .q-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1.25rem; }
+  .q-num { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; font-family: var(--mono); font-size: 0.7rem; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; margin-top: 2px; }
+  .q-cat { background: rgba(139,92,246,0.15); color: #c4b5fd; font-size: 0.68rem; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; font-family: var(--mono); text-transform: uppercase; margin-top: 2px; }
+  .q-text { font-size: 0.92rem; line-height: 1.6; font-weight: 500; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.15s; font-size: 0.83rem; color: var(--text2); line-height: 1.5; }
+  .option:hover { background: var(--surface2); border-color: rgba(59,130,246,0.4); color: var(--text); }
+  .option.selected { background: rgba(59,130,246,0.12); border-color: var(--accent); color: var(--text); }
+  .option.correct { background: rgba(16,185,129,0.12); border-color: var(--green); color: #6ee7b7; }
+  .option.wrong { background: rgba(239,68,68,0.1); border-color: var(--red); color: #fca5a5; }
+  .option-letter { font-family: var(--mono); font-size: 0.75rem; font-weight: 600; color: var(--text3); flex-shrink: 0; margin-top: 1px; }
+  .explanation { margin-top: 1rem; padding: 12px 14px; background: rgba(6,182,212,0.07); border: 1px solid rgba(6,182,212,0.2); border-radius: 9px; font-size: 0.8rem; color: var(--text2); line-height: 1.7; display: none; }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent2); font-weight: 500; }
+  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; text-align: center; }
+  .result-score { font-family: var(--head); font-size: 5rem; font-weight: 800; letter-spacing: -3px; }
+  .result-score.pass { background: linear-gradient(135deg, var(--green), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .result-score.fail { background: linear-gradient(135deg, var(--red), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .result-label { font-size: 0.9rem; color: var(--text2); margin-top: 0.5rem; margin-bottom: 1.5rem; }
+  .result-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; max-width: 400px; margin: 0 auto 2rem; }
+  .result-stat { background: var(--surface2); border-radius: 10px; padding: 1rem; }
+  .result-stat-num { font-family: var(--head); font-size: 1.5rem; font-weight: 700; }
+  .result-stat-label { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+  .cat-breakdown { max-width: 500px; margin: 0 auto 2rem; text-align: left; }
+  .cat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.8rem; }
+  .cat-name { width: 100px; color: var(--text2); font-size: 0.75rem; }
+  .cat-bar-wrap { flex: 1; height: 8px; background: var(--border); border-radius: 4px; }
+  .cat-bar { height: 8px; border-radius: 4px; transition: width 0.6s; }
+  .cat-pct { width: 40px; text-align: right; font-family: var(--mono); font-size: 0.72rem; color: var(--text2); }
+  .filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .filter-chip { padding: 5px 14px; border-radius: 999px; font-size: 0.75rem; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text2); font-family: var(--mono); transition: all 0.15s; }
+  .filter-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .hidden { display: none !important; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .score-live { font-family: var(--mono); font-size: 0.75rem; color: var(--green); background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); padding: 4px 12px; border-radius: 999px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media(max-width:600px) {
+    h1 { font-size: 2rem; letter-spacing: -1px; }
+    .stat-num { font-size: 1.5rem; }
+    nav { padding: 0 1rem; }
+    .container { padding: 1.5rem 1rem; }
+    .hero { padding: 2rem 1rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">⚡ PREP GUIDE</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('home',this)">Overview</button>
+    <button class="nav-tab" onclick="showPage('tips',this)">Key Tips</button>
+    <button class="nav-tab" onclick="showPage('cheat',this)">Cheat Sheet</button>
+    <button class="nav-tab" onclick="showPage('test',this)">MCQ Test <span class="nav-badge">50 Q</span></button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">Assessment Ready</div>
+    <h1>Crack Your <span>Technical</span> Assessment</h1>
+    <p class="hero-sub">Complete preparation kit — 50 practice MCQs, full topic cheat sheet, and exam strategies. Covers Python, Linux, Database, REST API, AI/ML, GCP, and Networking.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">35</div><div class="stat-label">Max questions in exam</div></div>
+      <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Pass mark required</div></div>
+      <div class="stat-card"><div class="stat-num">2 min</div><div class="stat-label">Per question limit</div></div>
+      <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">Topics covered</div></div>
+      <div class="stat-card"><div class="stat-num">50</div><div class="stat-label">Practice MCQs here</div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="showPage('test',document.querySelectorAll('.nav-tab')[3])">Start Mock Test →</button>
+      <button class="btn btn-outline" onclick="showPage('cheat',document.querySelectorAll('.nav-tab')[2])">View Cheat Sheet</button>
+      <button class="btn btn-outline" onclick="showPage('tips',document.querySelectorAll('.nav-tab')[1])">Exam Tips</button>
+    </div>
+    <div style="margin-top:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+      <div style="font-family:var(--head);font-weight:700;font-size:1rem;margin-bottom:1rem;">Topics Covered</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="tag">Python Programming</span><span class="tag green">Linux Commands</span><span class="tag amber">SQL / Database</span><span class="tag purple">REST API / Web</span><span class="tag red">AI / ML</span><span class="tag">GCP</span><span class="tag green">Networking</span><span class="tag amber">TensorFlow</span><span class="tag purple">HTTP Auth</span><span class="tag">BigQuery</span><span class="tag green">CNN / ML Models</span><span class="tag red">ACID Properties</span><span class="tag">Cypher / Neo4j</span><span class="tag amber">TCP/IP</span><span class="tag purple">CSS Flexbox</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS PAGE -->
+<div id="page-tips" class="page">
+  <div class="container">
+    <div class="section-title">Key Tips to Clear the Exam</div>
+    <div class="section-sub">Strategy, priorities, and memory tricks to maximise your score</div>
+    <div class="tips-grid">
+      <div class="tip-card blue">
+        <div class="tip-card-icon">🎯</div>
+        <div class="tip-card-title">Exam Strategy</div>
+        <ul class="tip-list">
+          <li>Read the <strong>entire question</strong> before looking at options — MCQs have clever distractors</li>
+          <li>Watch for <strong>"NOT" or "EXCEPT"</strong> in questions — these flip the answer completely</li>
+          <li>You can miss <strong>6–7 questions</strong> and still pass at 80% threshold</li>
+          <li>If stuck, eliminate <strong>2 obviously wrong options</strong> first, then choose from remaining two</li>
+          <li>Never leave blank — always <strong>guess if unsure</strong>, there's no negative marking mentioned</li>
+          <li>Time: ~2 min/question. If unsure after 90 sec, <strong>mark best guess and move on</strong></li>
+        </ul>
+      </div>
+      <div class="tip-card green">
+        <div class="tip-card-icon">🔥</div>
+        <div class="tip-card-title">High Priority Topics</div>
+        <ul class="tip-list">
+          <li><strong>Python</strong> — List vs Tuple vs Dict, file I/O, list methods. Very likely to appear (3–5 Qs)</li>
+          <li><strong>SQL CRUD</strong> — SELECT, INSERT, UPDATE, DELETE with WHERE and JOIN (2–3 Qs)</li>
+          <li><strong>Linux chmod/chown</strong> — permission numbers, ownership commands (2–3 Qs)</li>
+          <li><strong>REST HTTP methods</strong> — GET/POST/PUT/DELETE and status codes 200/400/404/500 (2–3 Qs)</li>
+          <li><strong>ML Pipeline</strong> — Data → Preprocess → Train → Deploy cycle (2 Qs)</li>
+          <li><strong>ACID Properties</strong> — Database transaction guarantees (1–2 Qs)</li>
+        </ul>
+      </div>
+      <div class="tip-card amber">
+        <div class="tip-card-icon">🧠</div>
+        <div class="tip-card-title">Memory Mnemonics</div>
+        <div class="mnemonic-box">
+          <code>ACID = "Always Committed Is Durable"</code>
+          <p>Atomicity · Consistency · Isolation · Durability</p>
+        </div>
+        <div class="mnemonic-box" style="margin-top:8px;">
+          <code>chmod 755 = 7-5-5 = "Owner Full, Rest Read+Exec"</code>
+          <p>4=read 2=write 1=exec → 7=all, 5=r+x only</p>
+        </div>
+        <div class="mnemonic-box" style="margin-top:8px;">
+          <code>REST = "Get Pizza Patiently During Delay"</code>
+          <p>GET · POST · PUT · PATCH · DELETE</p>
+        </div>
+        <div class="mnemonic-box" style="margin-top:8px;">
+          <code>ML Pipeline = "Don't Procrastinate Train Deploy"</code>
+          <p>Data → Preprocess → Train → Deploy</p>
+        </div>
+        <div class="mnemonic-box" style="margin-top:8px;">
+          <code>Confusion Matrix = "True/False + Positive/Negative"</code>
+          <p>TP=Correct Positive, FP=False Alarm, FN=Missed, TN=Correct Negative</p>
+        </div>
+      </div>
+      <div class="tip-card purple">
+        <div class="tip-card-icon">📊</div>
+        <div class="tip-card-title">Topic Priority Table</div>
+        <table class="priority-table">
+          <thead><tr><th>Topic</th><th>Priority</th><th>Est. Questions</th></tr></thead>
+          <tbody>
+            <tr><td>Python Basics</td><td><span class="pill pill-high">HIGH</span></td><td>4–5</td></tr>
+            <tr><td>Linux Commands</td><td><span class="pill pill-high">HIGH</span></td><td>3–4</td></tr>
+            <tr><td>SQL / Database</td><td><span class="pill pill-high">HIGH</span></td><td>3–4</td></tr>
+            <tr><td>REST API / Web</td><td><span class="pill pill-high">HIGH</span></td><td>3–4</td></tr>
+            <tr><td>AI / ML</td><td><span class="pill pill-med">MED</span></td><td>3–4</td></tr>
+            <tr><td>GCP</td><td><span class="pill pill-med">MED</span></td><td>2–3</td></tr>
+            <tr><td>Networking</td><td><span class="pill pill-med">MED</span></td><td>2–3</td></tr>
+            <tr><td>Cypher / Neo4j</td><td><span class="pill pill-low">LOW</span></td><td>1–2</td></tr>
+            <tr><td>CSS / HTML</td><td><span class="pill pill-low">LOW</span></td><td>1–2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-card red">
+        <div class="tip-card-icon">⚠️</div>
+        <div class="tip-card-title">Common Mistakes to Avoid</div>
+        <ul class="tip-list">
+          <li>Confusing <strong>List (mutable)</strong> with <strong>Tuple (immutable)</strong> in Python</li>
+          <li>Mixing up <strong>chmod</strong> (permissions) vs <strong>chown</strong> (ownership)</li>
+          <li>Thinking POST=update — POST=<strong>create new</strong>, PUT=<strong>update existing</strong></li>
+          <li>Confusing <strong>precision</strong> and <strong>recall</strong> in ML metrics</li>
+          <li>Confusing <strong>SSR</strong> (server renders HTML) with <strong>CSR</strong> (browser renders via JS)</li>
+          <li>Thinking BigQuery is a regular database — it's a <strong>serverless data warehouse</strong></li>
+          <li>HTTP 401 = <strong>Unauthenticated</strong>, 403 = <strong>Unauthorized/Forbidden</strong> (very commonly confused)</li>
+        </ul>
+      </div>
+      <div class="tip-card blue">
+        <div class="tip-card-icon">📅</div>
+        <div class="tip-card-title">7-Day Study Plan</div>
+        <ul class="tip-list">
+          <li><strong>Day 1:</strong> Python — Lists, Tuples, Dicts, file I/O, arrays</li>
+          <li><strong>Day 2:</strong> Linux — chmod, chown, netstat, kernel, ip route</li>
+          <li><strong>Day 3:</strong> Database — SQL CRUD, ACID, JOINs, Cypher basics</li>
+          <li><strong>Day 4:</strong> REST API — HTTP methods, status codes, JSON, SSR/CSR</li>
+          <li><strong>Day 5:</strong> AI/ML — pipeline, confusion matrix, CNN, K-means</li>
+          <li><strong>Day 6:</strong> GCP + Networking — BigQuery, Load Balancer, DNS, TCP/IP</li>
+          <li><strong>Day 7:</strong> Full mock test (use the MCQ test in this guide!) + revision</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHEAT SHEET -->
+<div id="page-cheat" class="page">
+  <div class="container">
+    <div class="section-title">Complete Topic Cheat Sheet</div>
+    <div class="section-sub">All key facts, commands, and concepts — grouped by topic</div>
+    <div class="cs-grid">
+
+      <!-- PYTHON -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(59,130,246,0.15);">🐍</div>
+          <div class="cs-title">Python Programming</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">Data Structures</div>
+            <div class="cs-item-text">
+              <strong>List</strong> — mutable, ordered, allows duplicates: <code style="color:var(--accent2)">[1,2,3]</code><br>
+              <strong>Tuple</strong> — immutable, ordered: <code style="color:var(--accent2)">(1,2,3)</code><br>
+              <strong>Dict</strong> — key-value, mutable: <code style="color:var(--accent2)">{"a":1,"b":2}</code><br>
+              <strong>Set</strong> — unordered, no duplicates: <code style="color:var(--accent2)">{1,2,3}</code>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Common List Methods</div>
+            <div class="code-block">lst.append(x)   # add to end
+lst.insert(i,x) # insert at index
+lst.pop()       # remove last
+lst.remove(x)   # remove first x
+lst.sort()      # sort in-place
+lst[1:3]        # slicing</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Dict Methods</div>
+            <div class="code-block">d.keys()          # all keys
+d.values()        # all values
+d.items()         # key-value pairs
+d.get('k','default') # safe get</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">File I/O</div>
+            <div class="code-block">with open('file.txt', 'r') as f:
+    data = f.read()
+# Modes: r=read, w=write, a=append
+#        rb=read binary, wb=write binary</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">TensorFlow Basics</div>
+            <div class="cs-item-text">Open-source ML framework by Google. Used to build and train neural networks. Key concepts: <strong>tensors</strong> (multi-dimensional arrays), <strong>model.compile()</strong>, <strong>model.fit()</strong>, <strong>model.predict()</strong>.</div>
+            <div class="code-block">import tensorflow as tf
+model = tf.keras.Sequential([...])
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy')
+model.fit(X_train, y_train, epochs=10)</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">NumPy Arrays</div>
+            <div class="code-block">import numpy as np
+arr = np.array([1,2,3,4])
+arr.shape   # dimensions
+arr.reshape(2,2)  # change shape
+arr.mean()  # average
+arr[0:2]    # slicing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LINUX -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(245,158,11,0.15);">🐧</div>
+          <div class="cs-title">Linux Commands</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">Permissions (chmod)</div>
+            <div class="cs-item-text"><strong>Read=4, Write=2, Execute=1</strong> (add for permissions)</div>
+            <div class="code-block">chmod 755 file  # rwxr-xr-x
+chmod 644 file  # rw-r--r--
+chmod 777 file  # rwxrwxrwx (all access)
+chmod +x file   # add execute for all
+chmod u+w file  # add write for owner
+# u=user/owner, g=group, o=others, a=all</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Ownership (chown)</div>
+            <div class="code-block">chown alice file.txt         # change owner
+chown alice:devs file.txt    # owner + group
+chown -R alice /dir          # recursive
+chgrp devs file.txt          # change group only</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Networking Commands</div>
+            <div class="code-block">netstat -tuln    # show listening ports
+netstat -an      # all connections
+ip route show    # display routing table
+ip addr show     # show IP addresses
+ifconfig         # network interface config
+ping google.com  # test connectivity
+traceroute host  # trace packet path</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">File System Commands</div>
+            <div class="code-block">ls -la     # list all files with details
+ls -lh     # human-readable file sizes
+ls -lt     # sort by modification time
+find / -name "*.txt"   # search files
+du -sh /dir            # disk usage
+df -h                  # disk free space</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Kernel Role</div>
+            <div class="cs-item-text">The kernel is the <strong>core of the OS</strong>. It manages: CPU scheduling (processes), memory management, device drivers, file system, system calls (interface between apps and hardware). The kernel runs in <strong>privileged mode</strong>; user apps run in user mode.</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Process Management</div>
+            <div class="code-block">ps aux           # list all processes
+kill -9 PID      # force kill process
+top / htop       # live process monitor
+systemctl start nginx   # start service
+systemctl status nginx  # check service</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATABASE -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(16,185,129,0.15);">🗄️</div>
+          <div class="cs-title">Database & SQL</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">ACID Properties</div>
+            <div class="cs-item-text">
+              <strong>Atomicity</strong> — Transaction is all-or-nothing. If one part fails, entire transaction rolls back.<br>
+              <strong>Consistency</strong> — Database always moves from one valid state to another.<br>
+              <strong>Isolation</strong> — Concurrent transactions don't interfere with each other.<br>
+              <strong>Durability</strong> — Committed data persists permanently, even after system crash.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">SQL CRUD Commands</div>
+            <div class="code-block">-- Create table
+CREATE TABLE users (id INT, name VARCHAR(50));
+
+-- Insert
+INSERT INTO users VALUES (1, 'Alice');
+
+-- Read
+SELECT * FROM users WHERE age > 25;
+SELECT name, age FROM users ORDER BY age DESC;
+
+-- Update
+UPDATE users SET age=30 WHERE id=1;
+
+-- Delete
+DELETE FROM users WHERE id=1;</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">JOINs</div>
+            <div class="code-block">-- INNER JOIN: matching rows in both tables
+SELECT u.name, o.amount
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id;
+
+-- LEFT JOIN: all rows from left table
+-- GROUP BY with aggregation
+SELECT dept, COUNT(*) as total
+FROM employees
+GROUP BY dept
+HAVING COUNT(*) > 5;</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Cypher (Neo4j Graph DB)</div>
+            <div class="cs-item-text"><strong>Cypher</strong> is the query language for Neo4j, a graph database where data is stored as nodes and relationships.</div>
+            <div class="code-block">-- Find a node
+MATCH (n:Person {name:'Alice'}) RETURN n;
+
+-- Find relationships
+MATCH (a:Person)-[:KNOWS]->(b:Person)
+RETURN a.name, b.name;
+
+-- Create node
+CREATE (n:Person {name:'Bob', age:30});</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">SQL vs NoSQL</div>
+            <div class="cs-item-text">
+              <strong>SQL (Relational)</strong>: Structured tables, fixed schema, ACID compliant. E.g., MySQL, PostgreSQL.<br>
+              <strong>NoSQL</strong>: Flexible schema, scales horizontally. E.g., MongoDB (document), Neo4j (graph), Redis (key-value), Cassandra (column).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REST API / WEB -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(139,92,246,0.15);">🌐</div>
+          <div class="cs-title">REST API & Web Technologies</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">HTTP Methods</div>
+            <div class="cs-item-text">
+              <strong>GET</strong> — Retrieve/read data (no body)<br>
+              <strong>POST</strong> — Create a new resource (data in body)<br>
+              <strong>PUT</strong> — Update/replace entire resource<br>
+              <strong>PATCH</strong> — Partial update of a resource<br>
+              <strong>DELETE</strong> — Remove a resource
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">HTTP Status Codes</div>
+            <div class="cs-item-text">
+              <strong>200 OK</strong> — Request succeeded<br>
+              <strong>201 Created</strong> — Resource created (POST)<br>
+              <strong>204 No Content</strong> — Success, no body returned<br>
+              <strong>400 Bad Request</strong> — Invalid input from client<br>
+              <strong>401 Unauthorized</strong> — Not authenticated (no/invalid token)<br>
+              <strong>403 Forbidden</strong> — Authenticated but no permission<br>
+              <strong>404 Not Found</strong> — Resource doesn't exist<br>
+              <strong>500 Internal Server Error</strong> — Server crashed
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">JSON Format</div>
+            <div class="code-block">// JSON = JavaScript Object Notation
+// Key-value format, human-readable
+{
+  "id": 1,
+  "name": "Alice",
+  "roles": ["admin", "user"],
+  "address": {
+    "city": "Chennai",
+    "country": "India"
+  }
+}</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">SSR vs CSR</div>
+            <div class="cs-item-text">
+              <strong>SSR (Server-Side Rendering)</strong>: HTML built on the server, sent to browser. Faster first load, better SEO. Used in: Next.js, PHP, Django templates.<br><br>
+              <strong>CSR (Client-Side Rendering)</strong>: Browser downloads JS bundle, then builds HTML. Initial load slower but very interactive. Used in: React, Angular, Vue SPAs.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">API Gateway & Fuzz Testing</div>
+            <div class="cs-item-text">
+              <strong>API Gateway</strong>: Single entry point for all client requests. Handles routing, authentication, rate limiting, load balancing. Examples: AWS API Gateway, Kong, NGINX.<br><br>
+              <strong>Fuzz Testing (Fuzzing)</strong>: Automated security technique that sends random/unexpected/invalid inputs to an application to find crashes, memory leaks, or vulnerabilities.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">HTTP Auth Methods</div>
+            <div class="cs-item-text">
+              <strong>Basic Auth</strong>: Base64 encoded username:password in header.<br>
+              <strong>Bearer Token / JWT</strong>: Token in Authorization header after login.<br>
+              <strong>OAuth 2.0</strong>: Delegated access (login with Google/Facebook).<br>
+              <strong>API Key</strong>: Secret key passed in header or query param.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">CSS Flexbox Essentials</div>
+            <div class="code-block">.container {
+  display: flex;
+  flex-direction: row;   /* or column */
+  justify-content: center; /* main axis */
+  align-items: center;   /* cross axis */
+  flex-wrap: wrap;
+  gap: 16px;
+}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI/ML -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(236,72,153,0.15);">🤖</div>
+          <div class="cs-title">AI / ML Concepts</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">ML Model Lifecycle</div>
+            <div class="cs-item-text">
+              <strong>1. Data Collection</strong> — Gather raw data from sources<br>
+              <strong>2. Preprocessing</strong> — Clean, normalize, encode, handle missing values, feature engineering<br>
+              <strong>3. Model Training</strong> — Feed data to algorithm, model learns patterns<br>
+              <strong>4. Evaluation</strong> — Test on unseen data, measure accuracy/loss<br>
+              <strong>5. Deployment</strong> — Serve model via API for production use<br>
+              <strong>6. Monitoring</strong> — Track performance drift, retrain when needed
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Confusion Matrix</div>
+            <div class="cs-item-text">
+              <strong>TP (True Positive)</strong> — Predicted positive, actually positive ✅<br>
+              <strong>TN (True Negative)</strong> — Predicted negative, actually negative ✅<br>
+              <strong>FP (False Positive)</strong> — Predicted positive, actually negative ❌ (Type I Error / False Alarm)<br>
+              <strong>FN (False Negative)</strong> — Predicted negative, actually positive ❌ (Type II Error / Missed)<br><br>
+              <strong>Accuracy</strong> = (TP+TN) / Total<br>
+              <strong>Precision</strong> = TP / (TP+FP) — "of all predicted positive, how many were correct?"<br>
+              <strong>Recall</strong> = TP / (TP+FN) — "of all actual positives, how many did we find?"
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">CNN (Convolutional Neural Networks)</div>
+            <div class="cs-item-text">
+              Specialized neural network for <strong>image processing</strong>. Uses convolutional layers to extract spatial features (edges, textures, shapes) through filters/kernels. Architecture: Input → Conv layers → Pooling → Flatten → Fully Connected → Output. Used in: image classification, object detection, facial recognition, medical imaging.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Clustering Algorithms</div>
+            <div class="cs-item-text">
+              <strong>K-Means</strong>: Unsupervised. Divides data into K clusters by distance to centroid. Iteratively reassigns points and recalculates centroids until stable. Applications: customer segmentation, document clustering.<br><br>
+              <strong>Hierarchical Clustering</strong>: Builds a tree of clusters (dendrogram). No need to specify K upfront.<br><br>
+              <strong>DBSCAN</strong>: Density-based. Finds clusters of arbitrary shape. Handles outliers well.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Descriptive Analysis</div>
+            <div class="cs-item-text">
+              Summarises and describes <strong>historical data</strong>. Answers "what happened?". Key metrics: Mean, Median, Mode, Standard Deviation, Variance, Min/Max, Quartiles. Tools: Pandas describe(), histograms, bar charts.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Supervised vs Unsupervised</div>
+            <div class="cs-item-text">
+              <strong>Supervised</strong>: Labeled training data. Goal: predict output. E.g., linear regression, decision trees, neural nets.<br>
+              <strong>Unsupervised</strong>: No labels. Goal: find patterns/structure. E.g., K-means, PCA, autoencoders.<br>
+              <strong>Reinforcement Learning</strong>: Agent learns by reward/penalty. E.g., game playing AI.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GCP -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(59,130,246,0.15);">☁️</div>
+          <div class="cs-title">GCP (Google Cloud Platform)</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">BigQuery</div>
+            <div class="cs-item-text">Fully managed, <strong>serverless data warehouse</strong>. No infrastructure to manage. Runs SQL queries on petabyte-scale datasets. Columnar storage for fast analytics. Ideal for business intelligence, large-scale data analysis. Billed per query (bytes processed).</div>
+            <div class="code-block">-- BigQuery SQL example
+SELECT country, COUNT(*) as users
+FROM `project.dataset.table`
+WHERE signup_date > '2024-01-01'
+GROUP BY country
+ORDER BY users DESC;</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Load Balancer</div>
+            <div class="cs-item-text">
+              Distributes incoming traffic across multiple backend instances. Types in GCP:<br>
+              <strong>HTTP(S) LB</strong> — Global, Layer 7, routes based on URL/headers<br>
+              <strong>TCP/UDP LB</strong> — Layer 4, regional<br>
+              <strong>Internal LB</strong> — For traffic within VPC<br>
+              Benefits: High availability, auto-scaling, health checks, SSL termination.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">GCP Compute Commands</div>
+            <div class="code-block"># List VM instances
+gcloud compute instances list
+
+# Create a VM
+gcloud compute instances create my-vm \
+  --zone=us-central1-a --machine-type=n1-standard-1
+
+# SSH into VM
+gcloud compute ssh my-vm --zone=us-central1-a
+
+# Copy files (GCS)
+gsutil cp file.txt gs://my-bucket/
+gsutil ls gs://my-bucket/</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Key GCP Services</div>
+            <div class="tag-row">
+              <span class="tag">Compute Engine (VMs)</span>
+              <span class="tag green">Cloud Run (containers)</span>
+              <span class="tag amber">Cloud Functions (serverless)</span>
+              <span class="tag purple">GKE (Kubernetes)</span>
+              <span class="tag">Cloud Storage</span>
+              <span class="tag green">BigQuery (analytics)</span>
+              <span class="tag amber">Cloud SQL (managed DB)</span>
+              <span class="tag purple">Pub/Sub (messaging)</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Serverless Architecture</div>
+            <div class="cs-item-text">No server management. Cloud provider handles infrastructure. Auto-scales to zero. Pay per execution/use. Examples: <strong>BigQuery</strong> (serverless SQL), <strong>Cloud Functions</strong> (event-driven code), <strong>Cloud Run</strong> (containerized apps).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NETWORKING -->
+      <div class="cs-card">
+        <div class="cs-header">
+          <div class="cs-icon" style="background:rgba(6,182,212,0.15);">🔗</div>
+          <div class="cs-title">Networking</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-item">
+            <div class="cs-item-title">TCP/IP Stack</div>
+            <div class="cs-item-text">
+              <strong>Application Layer</strong> — HTTP, HTTPS, FTP, DNS, SMTP<br>
+              <strong>Transport Layer</strong> — TCP (reliable, ordered) | UDP (fast, no guarantee)<br>
+              <strong>Network Layer</strong> — IP addressing, routing (routers)<br>
+              <strong>Data Link</strong> — MAC addresses, switches, Ethernet<br>
+              <strong>Physical</strong> — Cables, signals, hardware
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">TCP vs UDP</div>
+            <div class="cs-item-text">
+              <strong>TCP</strong>: Connection-oriented, reliable, ordered, error-checked. 3-way handshake (SYN→SYN-ACK→ACK). Use for: HTTP, email, file transfer.<br>
+              <strong>UDP</strong>: Connectionless, fast, no guarantee. Use for: video streaming, gaming, DNS, VoIP.
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">DNS (Domain Name System)</div>
+            <div class="cs-item-text">Translates domain names → IP addresses. Process: Browser → Recursive Resolver → Root Server → TLD Server → Authoritative Server → IP address returned. <strong>nslookup google.com</strong> to check DNS. Record types: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), TXT (text).</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">IP Routing</div>
+            <div class="cs-item-text">Routers use <strong>routing tables</strong> to decide where to forward packets. Routes have: destination network, subnet mask, gateway, metric. Static routes = manually configured. Dynamic routes = learned via protocols (OSPF, BGP, RIP).</div>
+            <div class="code-block">ip route show     # view routing table
+route -n          # numeric routing table
+ip route add 10.0.0.0/24 via 192.168.1.1</div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">TCP/IP Troubleshooting Steps</div>
+            <div class="cs-item-text">
+              <strong>1.</strong> <code style="color:var(--accent2)">ping 8.8.8.8</code> — check internet reachability<br>
+              <strong>2.</strong> <code style="color:var(--accent2)">ping hostname</code> — check DNS resolution<br>
+              <strong>3.</strong> <code style="color:var(--accent2)">traceroute host</code> — find where packets drop<br>
+              <strong>4.</strong> <code style="color:var(--accent2)">netstat -tuln</code> — check if port is open<br>
+              <strong>5.</strong> Check firewall rules (<code style="color:var(--accent2)">iptables -L</code>)<br>
+              <strong>6.</strong> Check interface config (<code style="color:var(--accent2)">ip addr</code>)
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="cs-item">
+            <div class="cs-item-title">Common Ports</div>
+            <div class="tag-row">
+              <span class="tag">22 SSH</span><span class="tag green">80 HTTP</span><span class="tag green">443 HTTPS</span><span class="tag amber">3306 MySQL</span><span class="tag purple">5432 PostgreSQL</span><span class="tag">25 SMTP</span><span class="tag red">53 DNS</span><span class="tag">8080 HTTP-alt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MCQ TEST PAGE -->
+<div id="page-test" class="page">
+  <div class="container">
+    <div id="test-setup">
+      <div class="section-title">MCQ Practice Test</div>
+      <div class="section-sub">50 questions across all topics — timed, scored, with answer explanations</div>
+      <div class="test-controls">
+        <select class="select-box" id="topic-filter">
+          <option value="all">All Topics (50 questions)</option>
+          <option value="python">Python Only</option>
+          <option value="linux">Linux Only</option>
+          <option value="db">Database Only</option>
+          <option value="api">REST API / Web Only</option>
+          <option value="ml">AI / ML Only</option>
+          <option value="gcp">GCP Only</option>
+          <option value="net">Networking Only</option>
+        </select>
+        <select class="select-box" id="num-questions">
+          <option value="10">10 Questions (Quick)</option>
+          <option value="20">20 Questions (Medium)</option>
+          <option value="35" selected>35 Questions (Full Exam)</option>
+          <option value="50">50 Questions (All)</option>
+        </select>
+        <button class="btn btn-primary" onclick="startTest()">Start Test →</button>
+        <div class="timer-box" id="timer-display" style="display:none">
+          <div class="timer-dot" id="timer-dot"></div>
+          <span id="timer-text">00:00</span>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;font-size:0.83rem;color:var(--text2);line-height:1.8;">
+        <div style="font-family:var(--head);font-weight:600;color:var(--text);font-size:0.9rem;margin-bottom:0.5rem;">📋 Test Instructions</div>
+        Click each option to select your answer. Explanation appears automatically after you select. Scroll down to see all questions. Your score is calculated at the end when you click Submit.
+        Score ≥ 80% = PASS ✅ &nbsp;|&nbsp; Score &lt; 80% = needs more study ❌ &nbsp;|&nbsp; Timer counts up so you know your pace.
+      </div>
+    </div>
+
+    <div id="test-area" style="display:none">
+      <div class="test-controls">
+        <div class="progress-wrap" style="flex:1;margin:0">
+          <div class="progress-label" id="q-progress">0 / 35</div>
+          <div class="progress-track"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+          <div class="score-live" id="score-live">Score: 0</div>
+        </div>
+        <div class="timer-box">
+          <div class="timer-dot" id="timer-dot2"></div>
+          <span id="timer-text2">00:00</span>
+        </div>
+        <button class="btn btn-outline" onclick="submitTest()">Submit Test</button>
+      </div>
+      <div id="questions-container"></div>
+      <div style="margin-top:1.5rem;display:flex;gap:10px;">
+        <button class="btn btn-green" onclick="submitTest()">✓ Submit & Get Results</button>
+        <button class="btn btn-outline" onclick="resetTest()">✕ Restart</button>
+      </div>
+    </div>
+
+    <div id="result-area" style="display:none">
+      <div class="result-box">
+        <div id="result-score-num" class="result-score">0%</div>
+        <div class="result-label" id="result-label">Calculating...</div>
+        <div class="result-grid">
+          <div class="result-stat"><div class="result-stat-num" id="res-correct" style="color:var(--green)">0</div><div class="result-stat-label">Correct</div></div>
+          <div class="result-stat"><div class="result-stat-num" id="res-wrong" style="color:var(--red)">0</div><div class="result-stat-label">Wrong</div></div>
+          <div class="result-stat"><div class="result-stat-num" id="res-time" style="color:var(--accent2)">0m</div><div class="result-stat-label">Time Taken</div></div>
+        </div>
+        <div class="cat-breakdown" id="cat-breakdown"></div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="reviewAnswers()">Review Answers</button>
+          <button class="btn btn-outline" onclick="resetTest()">Try Again</button>
+          <button class="btn btn-outline" onclick="showPage('cheat',document.querySelectorAll('.nav-tab')[2])">Study Cheat Sheet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  // PYTHON (10)
+  {cat:"python",q:"What is the key difference between a Python List and a Tuple?",opts:["Lists are unordered; tuples are ordered","Lists are mutable (changeable); tuples are immutable","Tuples can store multiple data types; lists cannot","Lists use () and tuples use []"],ans:1,exp:"Lists [] are mutable — you can add, remove, or change items. Tuples () are immutable — once created, they cannot be changed. Both are ordered and support multiple data types."},
+  {cat:"python",q:"Which Python method adds an element to the END of a list?",opts:["list.insert()","list.add()","list.append()","list.push()"],ans:2,exp:"list.append(x) adds element x to the end of the list. insert(i,x) adds at a specific index. There is no add() or push() in Python lists."},
+  {cat:"python",q:"How do you safely retrieve a value from a dict without raising a KeyError?",opts:["dict[key]","dict.fetch(key)","dict.get(key, default)","dict.retrieve(key)"],ans:2,exp:"dict.get(key, default) returns the value if key exists, otherwise returns the default value without raising an error. dict[key] raises KeyError if key doesn't exist."},
+  {cat:"python",q:"What mode should you use to open a file for APPENDING in Python?",opts:["open('file','r')","open('file','w')","open('file','a')","open('file','rb')"],ans:2,exp:"'a' mode opens file for appending — adds content at the end without overwriting. 'r'=read, 'w'=write (overwrites!), 'rb'=read binary."},
+  {cat:"python",q:"Which of the following is an IMMUTABLE data type in Python?",opts:["List","Dictionary","Set","Tuple"],ans:3,exp:"Tuples are immutable — once created, you cannot change their contents. Lists, Dictionaries, and Sets are all mutable (can be modified after creation)."},
+  {cat:"python",q:"What does numpy's reshape() function do?",opts:["Resizes the array by adding new elements","Changes the shape/dimensions without changing data","Sorts the array in a new shape","Creates a copy with different values"],ans:1,exp:"reshape() changes the dimensions of an array without changing the data. E.g., arr.reshape(2,3) converts a 1D array of 6 elements to a 2x3 matrix. Total elements must stay the same."},
+  {cat:"python",q:"In TensorFlow, what does model.fit() do?",opts:["Creates a new model architecture","Evaluates model on test data","Trains the model on provided data","Deploys the model to production"],ans:2,exp:"model.fit(X_train, y_train, epochs=N) trains the model — it feeds data through the network, computes loss, and updates weights via backpropagation for the specified number of epochs."},
+  {cat:"python",q:"What is the output of: len({'a':1, 'b':2, 'c':3})?",opts:["6","2","3","Error"],ans:2,exp:"len() on a dictionary returns the number of KEY-VALUE PAIRS, not the total number of values. The dict has 3 pairs ('a','b','c'), so len() returns 3."},
+  {cat:"python",q:"Which Python code correctly reads ALL lines from a file?",opts:["f.read()","f.readline()","f.readlines()","f.readall()"],ans:2,exp:"f.readlines() returns a list where each element is one line of the file. f.read() reads entire file as a single string. f.readline() reads only ONE line. f.readall() doesn't exist."},
+  {cat:"python",q:"What is a key-value pair data structure called in Python?",opts:["Array","Tuple","Dictionary","Set"],ans:2,exp:"A Dictionary (dict) stores data as key-value pairs: {'name':'Alice', 'age':25}. Arrays/lists use numeric indices. Tuples are ordered sequences. Sets are unordered unique values."},
+  // LINUX (8)
+  {cat:"linux",q:"What permission does chmod 755 grant?",opts:["Owner: rwx, Group: rwx, Others: rwx","Owner: rw-, Group: r--, Others: r--","Owner: rwx, Group: r-x, Others: r-x","Owner: r-x, Group: r-x, Others: r-x"],ans:2,exp:"chmod 755: Owner=7(4+2+1=rwx), Group=5(4+0+1=r-x), Others=5(r-x). Owner can read/write/execute. Group and others can read and execute only."},
+  {cat:"linux",q:"Which command changes the OWNER of a file in Linux?",opts:["chmod","chgrp","chown","chuser"],ans:2,exp:"chown changes the owner (and optionally group) of a file. Syntax: chown user:group filename. chmod changes permissions, not ownership. chgrp changes only the group."},
+  {cat:"linux",q:"What does 'netstat -tuln' show?",opts:["All active internet connections with process names","All listening TCP and UDP ports in numeric format","Network traffic statistics per interface","Currently logged-in users on the network"],ans:1,exp:"-t=TCP, -u=UDP, -l=listening only, -n=numeric (don't resolve hostnames). This shows all open/listening ports — useful for checking which services are running."},
+  {cat:"linux",q:"What does the Linux kernel NOT directly manage?",opts:["CPU scheduling","Memory management","Running web applications","Device drivers"],ans:2,exp:"The kernel manages CPU scheduling, memory, device drivers, and file systems. Web applications run in user space — they interact with the kernel via system calls, but the kernel doesn't directly manage application logic."},
+  {cat:"linux",q:"Which command shows the routing table in Linux?",opts:["netstat -r","ip route show","route print","tracert -r"],ans:1,exp:"'ip route show' (or 'ip route') displays the kernel routing table. 'netstat -r' also works but is older. 'route print' is Windows. 'tracert' is Windows traceroute — not a routing table command."},
+  {cat:"linux",q:"What does 'ls -la' show?",opts:["Only hidden files","All files including hidden, with permissions and sizes","Files sorted by time","Only executable files"],ans:1,exp:"-l=long format (shows permissions, owner, size, date), -a=all files including hidden (files starting with .). Combined: shows ALL files with full details."},
+  {cat:"linux",q:"What numeric value does 'execute' permission have in Linux chmod?",opts:["4","2","1","8"],ans:2,exp:"In Linux permissions: Read=4, Write=2, Execute=1. These are added together: rwx=7, rw-=6, r-x=5, r--=4, --x=1. This is the octal/numeric permission system."},
+  {cat:"linux",q:"What command force-kills a process by its PID?",opts:["kill PID","kill -9 PID","stop PID","end -f PID"],ans:1,exp:"kill -9 PID sends SIGKILL signal — immediately terminates the process, cannot be caught or ignored. Regular 'kill PID' sends SIGTERM (graceful shutdown). -9 is the 'last resort' kill."},
+  // DATABASE (7)
+  {cat:"db",q:"Which ACID property ensures a transaction is ALL-OR-NOTHING?",opts:["Consistency","Isolation","Durability","Atomicity"],ans:3,exp:"Atomicity ensures a transaction either completes fully or not at all — no partial updates. If any part fails, all changes are rolled back. Like a bank transfer: both debit AND credit must succeed or neither happens."},
+  {cat:"db",q:"Which SQL command is used to RETRIEVE data from a table?",opts:["FETCH","GET","SELECT","READ"],ans:2,exp:"SELECT is used to query/retrieve data. Basic syntax: SELECT columns FROM table WHERE condition. The others (FETCH, GET, READ) are not standard SQL DML commands for data retrieval."},
+  {cat:"db",q:"What does this SQL do: DELETE FROM users WHERE age < 18?",opts:["Marks users under 18 as inactive","Permanently removes all rows where age < 18","Updates age to 18 for those users","Creates a backup of users under 18"],ans:1,exp:"DELETE FROM removes rows permanently from the table. This query deletes ALL rows where the age column is less than 18. There is no automatic backup — the deletion is permanent unless you use a transaction."},
+  {cat:"db",q:"Which property of ACID ensures committed data survives a system crash?",opts:["Atomicity","Consistency","Isolation","Durability"],ans:3,exp:"Durability guarantees that once a transaction is committed, it will persist permanently — even if the system crashes immediately after. This is achieved via write-ahead logging and disk persistence."},
+  {cat:"db",q:"In Neo4j's Cypher language, what keyword is used to find nodes?",opts:["FIND","SEARCH","SELECT","MATCH"],ans:3,exp:"MATCH is the primary keyword in Cypher for finding nodes and relationships. Example: MATCH (n:Person) RETURN n. It's similar to SELECT in SQL. FIND and SEARCH are not Cypher keywords."},
+  {cat:"db",q:"What does SQL's GROUP BY clause do?",opts:["Sorts results alphabetically","Groups rows with same values to apply aggregate functions","Filters rows before aggregation","Joins two tables together"],ans:1,exp:"GROUP BY groups rows with identical values in specified columns, then allows aggregate functions (COUNT, SUM, AVG, MAX, MIN) per group. E.g., SELECT dept, COUNT(*) FROM employees GROUP BY dept."},
+  {cat:"db",q:"Which SQL JOIN returns only matching rows from BOTH tables?",opts:["LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN","INNER JOIN"],ans:3,exp:"INNER JOIN returns only rows where there's a match in BOTH tables. LEFT JOIN includes all from left + matches from right. RIGHT JOIN = opposite. FULL OUTER JOIN = all rows from both tables."},
+  // REST API / WEB (8)
+  {cat:"api",q:"Which HTTP method should you use to CREATE a new resource?",opts:["GET","PUT","POST","PATCH"],ans:2,exp:"POST is used to create a new resource. The server assigns an ID. GET=retrieve, PUT=replace/update an existing resource, PATCH=partial update, DELETE=remove. Remember: POST=Create, PUT=Update."},
+  {cat:"api",q:"What does HTTP status code 401 mean?",opts:["Resource not found","Server internal error","Request not authenticated (no/invalid token)","Authenticated but not authorized"],ans:2,exp:"401 Unauthorized means the request lacks valid authentication credentials — you're not logged in or your token is invalid/expired. 403 Forbidden means you ARE authenticated but don't have permission. 404=not found, 500=server error."},
+  {cat:"api",q:"What is an API Gateway primarily used for?",opts:["Storing API response data","Monitoring database performance","Single entry point handling routing, auth, and rate limiting","Compiling backend code"],ans:2,exp:"An API Gateway acts as the single entry point for all client requests. It handles: request routing, authentication/authorization, rate limiting, SSL termination, load balancing, and request/response transformation."},
+  {cat:"api",q:"What is Fuzz Testing?",opts:["Testing with predefined test cases","Testing with random/invalid inputs to find vulnerabilities","Performance testing under load","Testing UI components visually"],ans:1,exp:"Fuzz testing (fuzzing) sends random, malformed, or unexpected inputs to software to find bugs, crashes, memory leaks, or security vulnerabilities. It's an automated security testing technique that discovers edge cases developers didn't consider."},
+  {cat:"api",q:"What is the difference between SSR and CSR?",opts:["SSR uses JavaScript; CSR uses HTML","SSR renders HTML on server before sending; CSR renders in browser via JS","SSR is faster for API calls; CSR is faster for database","SSR requires React; CSR requires PHP"],ans:1,exp:"SSR: Server builds complete HTML and sends it — good for SEO and fast first load. CSR: Server sends minimal HTML + JavaScript bundle, browser renders the page — good for interactive SPAs but slower initial load."},
+  {cat:"api",q:"In REST API, what format is most commonly used to exchange data?",opts:["XML","CSV","JSON","YAML"],ans:2,exp:"JSON (JavaScript Object Notation) is the dominant data exchange format for REST APIs. It's lightweight, human-readable, and natively supported in JavaScript. XML was popular earlier but JSON has largely replaced it for APIs."},
+  {cat:"api",q:"What does the HTTP Authorization header with 'Bearer' prefix indicate?",opts:["Basic username/password auth","Session cookie authentication","JWT or OAuth token-based authentication","API key in URL parameter"],ans:2,exp:"'Authorization: Bearer <token>' is used for token-based auth (JWT or OAuth2). The client sends the token received after login with each subsequent request. The server validates the token without needing sessions."},
+  {cat:"api",q:"In CSS Flexbox, which property controls alignment along the CROSS axis?",opts:["justify-content","flex-direction","align-items","flex-wrap"],ans:2,exp:"align-items controls alignment on the cross axis (perpendicular to main axis). justify-content controls the main axis. If flex-direction is row (default), main axis is horizontal and cross axis is vertical."},
+  // AI/ML (8)
+  {cat:"ml",q:"What is the correct order of steps in the ML model lifecycle?",opts:["Training → Data Collection → Deployment → Preprocessing","Data Collection → Preprocessing → Training → Deployment","Preprocessing → Data Collection → Training → Deployment","Training → Preprocessing → Data Collection → Deployment"],ans:1,exp:"The correct ML pipeline: (1) Data Collection — gather raw data, (2) Preprocessing — clean/normalize data, (3) Training — model learns patterns, (4) Evaluation — test performance, (5) Deployment — serve in production."},
+  {cat:"ml",q:"In a Confusion Matrix, what is a FALSE POSITIVE?",opts:["Model predicted negative and it was negative","Model predicted positive and it was positive","Model predicted positive but it was actually negative","Model predicted negative but it was actually positive"],ans:2,exp:"False Positive (FP): model predicted POSITIVE but the truth was NEGATIVE. Also called Type I Error or 'false alarm'. Example: spam filter marks a legitimate email as spam. The model was wrong — it gave a false positive signal."},
+  {cat:"ml",q:"What type of neural network is CNN primarily designed for?",opts:["Text and NLP processing","Time series and sequence data","Image and visual data processing","Tabular structured data"],ans:2,exp:"CNNs (Convolutional Neural Networks) are designed for image/visual data. They use convolutional layers with filters/kernels that detect spatial features like edges, shapes, and textures. They're the foundation of computer vision."},
+  {cat:"ml",q:"What makes K-Means 'unsupervised' learning?",opts:["It requires labeled training data","It requires no training at all","It groups data without needing pre-labeled examples","It uses reinforcement signals to learn"],ans:2,exp:"Unsupervised learning means no labeled data is needed. K-Means automatically discovers groupings (clusters) in data based on similarity/distance, without being told what the correct clusters should be. Labels are assigned after clustering."},
+  {cat:"ml",q:"What does 'Descriptive Analysis' answer?",opts:["What will happen in the future?","Why did something happen?","What happened in the past?","What is the best decision to make?"],ans:2,exp:"Descriptive analysis summarises historical data to answer 'What happened?'. It uses statistics like mean, median, counts, and visualisations. Predictive = future, Diagnostic = why, Prescriptive = what to do."},
+  {cat:"ml",q:"Which metric measures 'of all actual positives, how many did the model find?'",opts:["Precision","Accuracy","Recall (Sensitivity)","F1 Score"],ans:2,exp:"Recall = TP/(TP+FN). It measures completeness — how many actual positive cases did the model successfully detect? High recall is critical in medical diagnosis (don't miss any cancer cases). Precision measures correctness of positive predictions."},
+  {cat:"ml",q:"What is the primary purpose of the Data Preprocessing step in ML?",opts:["Training the neural network weights","Deploying the model to production","Cleaning, normalising, and preparing raw data for training","Selecting the best algorithm to use"],ans:2,exp:"Preprocessing prepares raw data for model training. It includes: handling missing values, removing outliers, normalising/scaling values, encoding categorical variables, and feature engineering. Poor preprocessing = poor model performance."},
+  {cat:"ml",q:"What does CNN stand for in Machine Learning?",opts:["Computed Neural Node","Convolutional Neural Network","Connected Node Network","Central Neural Net"],ans:1,exp:"CNN = Convolutional Neural Network. It uses convolutional layers that apply learned filters/kernels across input images to detect features. The name comes from the mathematical convolution operation used in these layers."},
+  // GCP (5)
+  {cat:"gcp",q:"What type of service is Google BigQuery?",opts:["A managed relational database (like MySQL)","A serverless data warehouse for large-scale analytics","A key-value NoSQL database","A virtual machine hosting service"],ans:1,exp:"BigQuery is a fully managed, serverless data warehouse. It's designed for large-scale analytics and OLAP (Online Analytical Processing), not OLTP. You run SQL on petabytes of data without managing any infrastructure."},
+  {cat:"gcp",q:"What is the primary purpose of a GCP Load Balancer?",opts:["To store and retrieve files from cloud storage","To distribute incoming traffic across multiple backend instances","To manage database connection pooling","To compile and deploy application code"],ans:1,exp:"A Load Balancer distributes incoming network requests across multiple backend servers/instances. This ensures high availability (if one server fails, others take over), prevents overloading a single server, and enables auto-scaling."},
+  {cat:"gcp",q:"Which gcloud command lists all Compute Engine VM instances?",opts:["gcloud vm list","gcloud compute instances list","gcloud instances show all","gcloud list compute vms"],ans:1,exp:"'gcloud compute instances list' is the correct command to list all VM instances in a GCP project. The format is: gcloud [service] [resource] [action]. For Compute Engine VMs: gcloud compute instances [create/list/delete/ssh]."},
+  {cat:"gcp",q:"In a serverless architecture like Cloud Functions, what does 'serverless' mean?",opts:["No internet connection is required","Developers don't manage or provision servers — cloud handles it","The application runs with zero latency","Code runs directly on client devices"],ans:1,exp:"Serverless means developers write and deploy code without managing the underlying server infrastructure. The cloud provider automatically handles provisioning, scaling, and maintenance. You pay only for actual execution time, not idle server time."},
+  {cat:"gcp",q:"What does gsutil cp do in GCP?",opts:["Copies files to/from Google Cloud Storage","Creates a new GCP project","Copies VMs between zones","Updates Google Cloud permissions"],ans:0,exp:"gsutil is the command-line tool for Google Cloud Storage (GCS). gsutil cp copies files: gsutil cp local_file.txt gs://bucket/ uploads to GCS, and gsutil cp gs://bucket/file.txt . downloads from GCS to local."},
+  // NETWORKING (4)
+  {cat:"net",q:"What is the primary function of DNS?",opts:["Encrypts data during transmission","Translates domain names to IP addresses","Manages network routing tables","Authenticates users on a network"],ans:1,exp:"DNS (Domain Name System) acts like the internet's phone book — it translates human-readable domain names (google.com) into IP addresses (142.250.194.46) that computers use to find each other on the internet."},
+  {cat:"net",q:"Which protocol provides RELIABLE, ordered data delivery?",opts:["UDP","IP","ICMP","TCP"],ans:3,exp:"TCP (Transmission Control Protocol) provides reliable, ordered delivery through: connection establishment (3-way handshake), acknowledgements for each packet, retransmission on loss, and flow control. UDP is faster but unreliable."},
+  {cat:"net",q:"What is the purpose of IP routing?",opts:["Encrypting packets before sending","Forwarding packets from source to destination across networks","Assigning hostnames to IP addresses","Compressing network traffic"],ans:1,exp:"IP routing is the process of selecting paths to forward network packets from a source to a destination across multiple networks. Routers use routing tables to decide which interface to forward each packet based on destination IP address."},
+  {cat:"net",q:"Which Linux command is used to TEST basic network connectivity to a host?",opts:["traceroute","netstat","ping","nslookup"],ans:2,exp:"ping sends ICMP Echo Request packets to a host and waits for replies. It tests basic reachability and measures round-trip time. traceroute traces the path. netstat shows connections. nslookup queries DNS."},
+];
+
+let activeQuestions = [];
+let userAnswers = {};
+let testStartTime = null;
+let timerInterval = null;
+let timerSeconds = 0;
+let testSubmitted = false;
+
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function startTest() {
+  const topic = document.getElementById('topic-filter').value;
+  const num = parseInt(document.getElementById('num-questions').value);
+  let pool = topic === 'all' ? [...ALL_QUESTIONS] : ALL_QUESTIONS.filter(q => q.cat === topic);
+  pool = shuffle(pool).slice(0, Math.min(num, pool.length));
+  activeQuestions = pool;
+  userAnswers = {};
+  testSubmitted = false;
+  timerSeconds = 0;
+  document.getElementById('test-setup').style.display = 'none';
+  document.getElementById('test-area').style.display = 'block';
+  document.getElementById('result-area').style.display = 'none';
+  renderQuestions();
+  startTimer();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = activeQuestions.map((q, idx) => `
+    <div class="q-card" id="qcard-${idx}">
+      <div class="q-header">
+        <span class="q-num">Q${idx + 1}</span>
+        <span class="q-cat">${q.cat.toUpperCase()}</span>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="options">
+        ${q.opts.map((opt, oi) => `
+          <div class="option" id="opt-${idx}-${oi}" onclick="selectAnswer(${idx}, ${oi})">
+            <span class="option-letter">${String.fromCharCode(65+oi)}.</span>
+            <span>${opt}</span>
+          </div>`).join('')}
+      </div>
+      <div class="explanation" id="exp-${idx}"><strong>Explanation:</strong> ${q.exp}</div>
+    </div>
+  `).join('');
+  updateProgress();
+}
+
+function selectAnswer(qIdx, optIdx) {
+  if (testSubmitted) return;
+  const prev = userAnswers[qIdx];
+  if (prev !== undefined) {
+    document.getElementById(`opt-${qIdx}-${prev}`).classList.remove('selected');
+  }
+  userAnswers[qIdx] = optIdx;
+  document.getElementById(`opt-${qIdx}-${optIdx}`).classList.add('selected');
+  document.getElementById(`exp-${qIdx}`).classList.add('show');
+  updateProgress();
+  updateLiveScore();
+}
+
+function updateProgress() {
+  const answered = Object.keys(userAnswers).length;
+  const total = activeQuestions.length;
+  const pct = (answered / total) * 100;
+  document.getElementById('q-progress').textContent = `${answered} / ${total} answered`;
+  document.getElementById('prog-bar').style.width = pct + '%';
+}
+
+function updateLiveScore() {
+  let correct = 0;
+  Object.entries(userAnswers).forEach(([idx, ans]) => {
+    if (activeQuestions[idx].ans === ans) correct++;
+  });
+  document.getElementById('score-live').textContent = `Score: ${correct}`;
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerSeconds = 0;
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const s = String(timerSeconds % 60).padStart(2, '0');
+    const txt = `${m}:${s}`;
+    document.getElementById('timer-text2').textContent = txt;
+    const dot = document.getElementById('timer-dot2');
+    const limit = activeQuestions.length * 120;
+    dot.className = 'timer-dot' + (timerSeconds > limit * 0.8 ? ' danger' : timerSeconds > limit * 0.6 ? ' warn' : '');
+  }, 1000);
+}
+
+function submitTest() {
+  if (!confirm('Submit test? Unanswered questions will be marked wrong.')) return;
+  clearInterval(timerInterval);
+  testSubmitted = true;
+  let correct = 0;
+  const catStats = {};
+  activeQuestions.forEach((q, idx) => {
+    const userAns = userAnswers[idx];
+    const isCorrect = userAns === q.ans;
+    if (isCorrect) correct++;
+    // Highlight answers
+    q.opts.forEach((_, oi) => {
+      const el = document.getElementById(`opt-${idx}-${oi}`);
+      el.classList.remove('selected');
+      if (oi === q.ans) el.classList.add('correct');
+      else if (oi === userAns && !isCorrect) el.classList.add('wrong');
+    });
+    document.getElementById(`exp-${idx}`).classList.add('show');
+    // Cat stats
+    if (!catStats[q.cat]) catStats[q.cat] = {correct:0,total:0};
+    catStats[q.cat].total++;
+    if (isCorrect) catStats[q.cat].correct++;
+  });
+  const total = activeQuestions.length;
+  const pct = Math.round((correct / total) * 100);
+  const passed = pct >= 80;
+  document.getElementById('test-area').style.display = 'none';
+  document.getElementById('result-area').style.display = 'block';
+  document.getElementById('result-score-num').textContent = pct + '%';
+  document.getElementById('result-score-num').className = 'result-score ' + (passed ? 'pass' : 'fail');
+  document.getElementById('result-label').textContent = passed ? '✅ PASSED — Great job! You are ready for the assessment.' : `❌ Needs more study — You need ${80 - pct}% more to pass. Focus on weak areas.`;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = total - correct;
+  const mins = Math.floor(timerSeconds / 60);
+  const secs = timerSeconds % 60;
+  document.getElementById('res-time').textContent = `${mins}m ${secs}s`;
+  // Category breakdown
+  const catNames = {python:'Python',linux:'Linux',db:'Database',api:'REST/Web',ml:'AI/ML',gcp:'GCP',net:'Networking'};
+  const catColors = {python:'#3b82f6',linux:'#f59e0b',db:'#10b981',api:'#8b5cf6',ml:'#ec4899',gcp:'#06b6d4',net:'#f59e0b'};
+  const bd = document.getElementById('cat-breakdown');
+  bd.innerHTML = '<div style="font-family:var(--head);font-weight:600;font-size:0.9rem;margin-bottom:1rem;text-align:left;">Performance by Topic</div>' +
+    Object.entries(catStats).map(([cat, st]) => {
+      const p = Math.round((st.correct / st.total) * 100);
+      return `<div class="cat-row"><div class="cat-name">${catNames[cat]||cat}</div><div class="cat-bar-wrap"><div class="cat-bar" style="width:${p}%;background:${catColors[cat]||'#3b82f6'}"></div></div><div class="cat-pct">${p}%</div></div>`;
+    }).join('');
+}
+
+function reviewAnswers() {
+  document.getElementById('result-area').style.display = 'none';
+  document.getElementById('test-area').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('test-area').offsetTop - 80, behavior: 'smooth' });
+}
+
+function resetTest() {
+  clearInterval(timerInterval);
+  document.getElementById('test-setup').style.display = 'block';
+  document.getElementById('test-area').style.display = 'none';
+  document.getElementById('result-area').style.display = 'none';
+  document.getElementById('questions-container').innerHTML = '';
+}
+</script>
+</body>
+</html>

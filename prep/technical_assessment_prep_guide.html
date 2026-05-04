@@ -1,0 +1,267 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); color: var(--color-text-primary); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; padding: 1rem 0 0; }
+.tab { padding: 7px 16px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); font-size: 13px; cursor: pointer; color: var(--color-text-secondary); transition: all 0.15s; }
+.tab.active { background: #185FA5; color: #E6F1FB; border-color: #185FA5; font-weight: 500; }
+.tab:hover:not(.active) { background: var(--color-background-primary); color: var(--color-text-primary); }
+.section { display: none; }
+.section.active { display: block; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 12px; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: var(--border-radius-md); font-size: 12px; font-weight: 500; margin-bottom: 8px; }
+.badge-blue { background: #E6F1FB; color: #0C447C; }
+.badge-green { background: #EAF3DE; color: #27500A; }
+.badge-amber { background: #FAEEDA; color: #633806; }
+.badge-coral { background: #FAECE7; color: #712B13; }
+.badge-purple { background: #EEEDFE; color: #3C3489; }
+.badge-teal { background: #E1F5EE; color: #085041; }
+.topic-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+.topic-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.tip-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; font-size: 13px; line-height: 1.6; }
+.tip-num { min-width: 22px; height: 22px; border-radius: 50%; background: #185FA5; color: #E6F1FB; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; margin-top: 1px; }
+.q-item { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px 14px; margin-bottom: 10px; cursor: pointer; transition: background 0.1s; }
+.q-item:hover { background: var(--color-background-secondary); }
+.q-text { font-size: 13px; font-weight: 500; margin-bottom: 0; }
+.q-answer { font-size: 13px; color: var(--color-text-secondary); margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--color-border-tertiary); display: none; line-height: 1.7; }
+.q-answer.show { display: block; }
+.q-toggle { font-size: 11px; color: #185FA5; margin-top: 6px; cursor: pointer; }
+.plan-day { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: start; margin-bottom: 14px; }
+.plan-label { background: #EEEDFE; color: #3C3489; border-radius: var(--border-radius-md); padding: 5px 8px; font-size: 12px; font-weight: 500; text-align: center; }
+.plan-content { font-size: 13px; line-height: 1.6; }
+.plan-content strong { font-weight: 500; color: var(--color-text-primary); }
+.progress-bar { height: 6px; background: var(--color-background-secondary); border-radius: 3px; margin-top: 6px; }
+.progress-fill { height: 6px; border-radius: 3px; background: #185FA5; }
+.filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+.filter-btn { padding: 4px 12px; font-size: 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+.filter-btn.on { background: #185FA5; color: #E6F1FB; border-color: #185FA5; }
+</style>
+
+<div style="padding: 1rem 0 0;">
+<h2 style="font-size: 18px; font-weight: 500; margin-bottom: 4px;">Technical Assessment Prep Guide</h2>
+<p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 0;">30–35 MCQs · ~2 min per question · 80% to pass</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('tips')">Key Tips</div>
+  <div class="tab" onclick="switchTab('plan')">Study Plan</div>
+  <div class="tab" onclick="switchTab('questions')">Practice Questions</div>
+  <div class="tab" onclick="switchTab('topics')">Topic Cheatsheet</div>
+</div>
+
+<div id="tips" class="section active">
+  <div class="card">
+    <div class="badge badge-blue">Strategy</div>
+    <div class="topic-title">How to approach the exam</div>
+    <div class="tip-item"><div class="tip-num">1</div><span>Read each question fully before looking at options — MCQs often have trap options that seem right at first glance.</span></div>
+    <div class="tip-item"><div class="tip-num">2</div><span>You have ~2 min per question. If stuck, eliminate 2 wrong options first, then make your best guess — don't leave blanks.</span></div>
+    <div class="tip-item"><div class="tip-num">3</div><span>80% is the pass mark — that means you can afford to get 6–7 wrong out of 35. Don't panic if a few questions seem hard.</span></div>
+    <div class="tip-item"><div class="tip-num">4</div><span>Watch for "NOT" or "EXCEPT" in questions — these flip the answer.</span></div>
+    <div class="tip-item"><div class="tip-num">5</div><span>For Linux commands and SQL, focus on command syntax and what each flag/keyword does.</span></div>
+  </div>
+  <div class="card">
+    <div class="badge badge-green">High-weight topics</div>
+    <div class="topic-title">Focus these first — appear most in assessments</div>
+    <div class="tip-item"><div class="tip-num">1</div><span><strong style="font-weight:500">Python basics</strong> — List, Dict, Tuples, file I/O, NumPy arrays. Know the difference between mutable and immutable types.</span></div>
+    <div class="tip-item"><div class="tip-num">2</div><span><strong style="font-weight:500">SQL fundamentals</strong> — CRUD (CREATE, SELECT, INSERT, UPDATE, DELETE), WHERE, JOIN, GROUP BY, ACID properties.</span></div>
+    <div class="tip-item"><div class="tip-num">3</div><span><strong style="font-weight:500">Linux commands</strong> — chmod, chown, ls, netstat, ip route. Know permission numbers (755, 644 etc.).</span></div>
+    <div class="tip-item"><div class="tip-num">4</div><span><strong style="font-weight:500">AI/ML pipeline</strong> — Data Collection → Preprocessing → Training → Deployment. Know what each stage does.</span></div>
+    <div class="tip-item"><div class="tip-num">5</div><span><strong style="font-weight:500">REST API concepts</strong> — HTTP methods (GET/POST/PUT/DELETE), status codes (200, 400, 404, 500), JSON format.</span></div>
+  </div>
+  <div class="card">
+    <div class="badge badge-amber">Quick Mnemonics</div>
+    <div class="topic-title">Memory tricks</div>
+    <div class="tip-item"><div class="tip-num">A</div><span>ACID = <strong style="font-weight:500">A</strong>tomicity, <strong style="font-weight:500">C</strong>onsistency, <strong style="font-weight:500">I</strong>solation, <strong style="font-weight:500">D</strong>urability</span></div>
+    <div class="tip-item"><div class="tip-num">B</div><span>chmod 755 = Owner: rwx, Group: r-x, Others: r-x. Think 4+2+1=7 (read+write+exec)</span></div>
+    <div class="tip-item"><div class="tip-num">C</div><span>REST verbs: <strong style="font-weight:500">G</strong>et=Read, <strong style="font-weight:500">P</strong>ost=Create, <strong style="font-weight:500">P</strong>ut=Update, <strong style="font-weight:500">D</strong>elete=Delete (GPDD)</span></div>
+    <div class="tip-item"><div class="tip-num">D</div><span>ML pipeline: "Don't Play The Damn Guitar" = Data → Preprocess → Train → Deploy</span></div>
+  </div>
+</div>
+
+<div id="plan" class="section">
+  <div class="card">
+    <div class="badge badge-purple">7-Day Study Plan</div>
+    <div class="topic-title">Assuming 1.5–2 hours per day</div>
+  </div>
+
+  <div class="card">
+    <div class="plan-day">
+      <div class="plan-label">Day 1</div>
+      <div class="plan-content"><strong>Python Foundations</strong><br>Lists, Tuples, Dicts, file I/O, arrays with NumPy. Write 5 small scripts. Practice slicing and list comprehensions.<div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 2</div>
+      <div class="plan-content"><strong>Linux + Networking</strong><br>chmod/chown permissions, netstat, ip route, ls flags, kernel concepts. Practice commands in a terminal or online Linux sandbox.<div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 3</div>
+      <div class="plan-content"><strong>Database + SQL</strong><br>Basic SQL CRUD, JOINs, WHERE, GROUP BY. Learn ACID properties and Cypher (Neo4j graph query basics).<div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 4</div>
+      <div class="plan-content"><strong>REST API + Web Tech</strong><br>HTTP methods, status codes, JSON, API Gateway, fuzz testing concept, server-side vs client-side rendering, CSS Flexbox.<div class="progress-bar"><div class="progress-fill" style="width:57%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 5</div>
+      <div class="plan-content"><strong>AI/ML Concepts</strong><br>Model lifecycle, confusion matrix (TP/FP/TN/FN), CNN basics, clustering (K-means), descriptive analysis, TensorFlow overview.<div class="progress-bar"><div class="progress-fill" style="width:71%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 6</div>
+      <div class="plan-content"><strong>GCP + Networking</strong><br>Load Balancer, BigQuery (serverless data warehouse), compute commands. TCP/IP troubleshooting, DNS, IP routing basics.<div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+    </div>
+    <div class="plan-day">
+      <div class="plan-label">Day 7</div>
+      <div class="plan-content"><strong>Full Mock Test + Revision</strong><br>Take all practice questions in this guide. Revisit weak areas. Review all mnemonics. Sleep well the night before!<div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="questions" class="section">
+  <div class="filter-row">
+    <button class="filter-btn on" onclick="filterQ('all', this)">All</button>
+    <button class="filter-btn" onclick="filterQ('python', this)">Python</button>
+    <button class="filter-btn" onclick="filterQ('linux', this)">Linux</button>
+    <button class="filter-btn" onclick="filterQ('db', this)">Database</button>
+    <button class="filter-btn" onclick="filterQ('api', this)">REST/Web</button>
+    <button class="filter-btn" onclick="filterQ('ml', this)">AI/ML</button>
+    <button class="filter-btn" onclick="filterQ('gcp', this)">GCP</button>
+    <button class="filter-btn" onclick="filterQ('net', this)">Networking</button>
+  </div>
+
+  <div id="q-list"></div>
+</div>
+
+<div id="topics" class="section">
+  <div class="card">
+    <div class="badge badge-blue">Python</div>
+    <div class="topic-title">Key facts to remember</div>
+    <div class="topic-desc">
+      • List = mutable, ordered. Tuple = immutable, ordered. Dict = key-value, mutable.<br>
+      • <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">len(), append(), pop(), get(), items(), keys()</code> — common methods<br>
+      • TensorFlow: used for ML model building; <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">tf.constant, tf.Variable, model.fit()</code><br>
+      • File I/O: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">open('file.txt', 'r')</code> modes: r, w, a, rb
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-coral">Linux</div>
+    <div class="topic-title">Critical commands</div>
+    <div class="topic-desc">
+      • <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">chmod 755 file</code> — sets rwxr-xr-x permissions<br>
+      • <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">chown user:group file</code> — change file owner<br>
+      • <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">netstat -tuln</code> — show listening ports<br>
+      • <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">ip route show</code> — display routing table<br>
+      • Kernel role: manages hardware, memory, processes, device drivers
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-teal">Database</div>
+    <div class="topic-title">SQL + ACID + Cypher</div>
+    <div class="topic-desc">
+      • ACID: Atomicity (all or nothing), Consistency (valid state), Isolation (concurrent txns independent), Durability (persists after commit)<br>
+      • SQL: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">SELECT * FROM table WHERE condition GROUP BY col</code><br>
+      • Cypher (Neo4j): <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">MATCH (n:Label) RETURN n</code> — graph query
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-amber">REST API / Web</div>
+    <div class="topic-title">HTTP + JSON + Rendering</div>
+    <div class="topic-desc">
+      • HTTP methods: GET (read), POST (create), PUT (update), DELETE (delete)<br>
+      • Status codes: 200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Server Error<br>
+      • JSON: key-value text format, human-readable, <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">{"key": "value"}</code><br>
+      • SSR = HTML built on server. CSR = HTML built in browser via JS.<br>
+      • Fuzz testing = sending random/invalid inputs to find vulnerabilities
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-purple">AI / ML</div>
+    <div class="topic-title">Concepts and lifecycle</div>
+    <div class="topic-desc">
+      • Pipeline: Data Collection → Preprocessing → Training → Evaluation → Deployment<br>
+      • Confusion Matrix: TP (correct positive), FP (false alarm), FN (missed), TN (correct negative)<br>
+      • CNN: Convolutional layers extract image features; used in image classification<br>
+      • K-Means clustering: groups data into K clusters by distance to centroid<br>
+      • Descriptive analysis: summarizes historical data (mean, median, mode)
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-teal">GCP</div>
+    <div class="topic-title">Google Cloud Platform</div>
+    <div class="topic-desc">
+      • Load Balancer: distributes traffic across multiple servers for availability<br>
+      • BigQuery: serverless, fully managed data warehouse for analytics at scale<br>
+      • Key commands: <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">gcloud compute instances list</code>, <code style="font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:4px">gsutil cp</code> for storage
+    </div>
+  </div>
+  <div class="card">
+    <div class="badge badge-blue">Networking</div>
+    <div class="topic-title">TCP/IP, DNS, IP routing</div>
+    <div class="topic-desc">
+      • TCP/IP: Transmission Control Protocol ensures reliable data delivery<br>
+      • DNS: translates domain names (google.com) to IP addresses<br>
+      • IP routing: routers forward packets based on routing tables<br>
+      • Troubleshooting: ping (reachability), traceroute (path), netstat (connections)
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const questions = [
+  { cat: "python", q: "What is the difference between a list and a tuple in Python?", a: "A list is mutable (can be changed after creation) and defined with [], while a tuple is immutable (cannot be changed) and defined with (). Tuples are faster and used for fixed data." },
+  { cat: "python", q: "How do you open a file in Python for reading?", a: "Use open('filename.txt', 'r'). Always close it after, or use 'with open(...)' context manager which closes automatically. Modes: 'r'=read, 'w'=write, 'a'=append." },
+  { cat: "python", q: "What does dict.get('key', default) do?", a: "It retrieves the value for 'key' from the dictionary. If the key doesn't exist, it returns the default value instead of raising a KeyError. This is safer than dict['key']." },
+  { cat: "python", q: "What is TensorFlow primarily used for?", a: "TensorFlow is an open-source ML framework by Google for building and training neural networks. It supports deep learning, model deployment, and runs on CPUs, GPUs, and TPUs." },
+  { cat: "linux", q: "What does chmod 755 filename do?", a: "Sets permissions: Owner = rwx (7 = 4+2+1), Group = r-x (5 = 4+0+1), Others = r-x. Owner can read/write/execute; group and others can only read and execute." },
+  { cat: "linux", q: "What is the purpose of the chown command?", a: "chown changes the ownership of a file or directory. Syntax: chown user:group filename. Example: chown alice:developers file.txt — gives file to user 'alice' and group 'developers'." },
+  { cat: "linux", q: "What does netstat -tuln show?", a: "Shows all TCP (-t) and UDP (-u) ports that are Listening (-l), displayed as numeric IPs (-n) without DNS resolution. Used to check which services are running and on which ports." },
+  { cat: "linux", q: "What is the role of the Linux kernel?", a: "The kernel is the core of the OS. It manages hardware resources (CPU, memory, storage), handles process scheduling, manages device drivers, and provides system calls for applications to interact with hardware." },
+  { cat: "db", q: "What does ACID stand for in databases?", a: "Atomicity (transaction is all-or-nothing), Consistency (data always in valid state), Isolation (concurrent transactions don't interfere), Durability (committed data persists even after crash)." },
+  { cat: "db", q: "Write a SQL query to select all users older than 25.", a: "SELECT * FROM users WHERE age > 25; — SELECT specifies columns (* = all), FROM specifies table, WHERE filters rows. Use ORDER BY age to sort results." },
+  { cat: "db", q: "What is Cypher used for?", a: "Cypher is the query language for Neo4j (a graph database). Example: MATCH (n:Person)-[:FRIENDS_WITH]->(m) RETURN n,m — retrieves people and their friends from the graph." },
+  { cat: "api", q: "What HTTP method is used to create a new resource?", a: "POST is used to create a new resource. GET = retrieve, PUT = update/replace, PATCH = partial update, DELETE = remove. POST sends data in the request body." },
+  { cat: "api", q: "What does HTTP status code 404 mean?", a: "404 Not Found — the requested resource doesn't exist on the server. Common codes: 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 500 (Server Error)." },
+  { cat: "api", q: "What is the difference between SSR and CSR?", a: "SSR (Server-Side Rendering): HTML is generated on the server and sent to browser — faster initial load, better SEO. CSR (Client-Side Rendering): Browser downloads JS and renders HTML — more interactive but slower first load." },
+  { cat: "api", q: "What is fuzz testing?", a: "Fuzz testing (fuzzing) sends random, unexpected, or invalid inputs to a system to find bugs, crashes, or security vulnerabilities. It's an automated testing technique used in security auditing." },
+  { cat: "ml", q: "What are the stages of the ML model lifecycle?", a: "Data Collection → Data Preprocessing (cleaning, feature engineering) → Model Training → Model Evaluation (metrics like accuracy) → Deployment → Monitoring. Some add a feedback loop back to data collection." },
+  { cat: "ml", q: "In a confusion matrix, what is a False Positive?", a: "A False Positive (FP) is when the model predicts 'positive' but the actual answer is 'negative' — a false alarm. Example: spam filter marks a legitimate email as spam." },
+  { cat: "ml", q: "What is K-means clustering?", a: "K-means is an unsupervised algorithm that divides data into K groups (clusters). It assigns each point to the nearest centroid, then recalculates centroids iteratively until stable. Used for customer segmentation, image compression." },
+  { cat: "ml", q: "What does CNN stand for and what is it used for?", a: "CNN = Convolutional Neural Network. It uses convolutional layers to automatically detect spatial features in images (edges, shapes, textures). Mainly used for image classification, object detection, and facial recognition." },
+  { cat: "gcp", q: "What is BigQuery in GCP?", a: "BigQuery is Google Cloud's fully managed, serverless data warehouse. It can run SQL queries on petabyte-scale datasets without managing infrastructure. Ideal for business analytics and large-scale data processing." },
+  { cat: "gcp", q: "What is the purpose of a load balancer in GCP?", a: "A load balancer distributes incoming network traffic across multiple backend servers/instances. This ensures high availability, prevents any single server from being overloaded, and enables auto-scaling." },
+  { cat: "net", q: "What is DNS and what does it do?", a: "DNS (Domain Name System) translates human-readable domain names (like google.com) into IP addresses (like 142.250.194.14) that computers use to communicate. It's often called the 'phone book of the internet'." },
+  { cat: "net", q: "How would you troubleshoot a TCP/IP connectivity issue?", a: "Step 1: ping the target IP (check reachability). Step 2: traceroute to find where packets drop. Step 3: check netstat for port/connection issues. Step 4: verify firewall rules. Step 5: check DNS with nslookup." },
+];
+
+function renderQuestions(filter) {
+  const list = document.getElementById('q-list');
+  const filtered = filter === 'all' ? questions : questions.filter(q => q.cat === filter);
+  list.innerHTML = filtered.map((q, i) => `
+    <div class="q-item" data-cat="${q.cat}">
+      <div class="q-text">${i+1}. ${q.q}</div>
+      <div class="q-toggle" onclick="toggleAns(this)">Show answer ▾</div>
+      <div class="q-answer">${q.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleAns(el) {
+  const ans = el.nextElementSibling;
+  const showing = ans.classList.toggle('show');
+  el.textContent = showing ? 'Hide answer ▴' : 'Show answer ▾';
+}
+
+function filterQ(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  renderQuestions(cat);
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+renderQuestions('all');
+</script>
