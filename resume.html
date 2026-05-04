@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume – Kandula Madhu Kondaiah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text: #1e293b;
+      --text-secondary: #475569;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem 1rem;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 8px; padding: .5rem 1rem;
+      color: var(--text-secondary); font-size: .875rem;
+      text-decoration: none; margin-bottom: 1.5rem;
+      transition: all .2s;
+    }
+    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Print button */
+    .print-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px; padding: .5rem 1.25rem;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      margin-bottom: 1.5rem; margin-left: .75rem;
+      transition: opacity .2s;
+    }
+    .print-btn:hover { opacity: .88; }
+
+    /* Resume paper */
+    .resume {
+      max-width: 860px; margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .r-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff;
+      padding: 2.5rem 3rem;
+    }
+    .r-header h1 {
+      font-size: 2rem; font-weight: 700; letter-spacing: -.5px;
+    }
+    .r-header .tagline {
+      font-size: 1rem; opacity: .85; margin-top: .3rem; font-weight: 400;
+    }
+    .r-contact {
+      display: flex; flex-wrap: wrap; gap: .75rem 2rem;
+      margin-top: 1.25rem;
+    }
+    .r-contact a, .r-contact span {
+      display: flex; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.85); font-size: .85rem;
+      text-decoration: none;
+    }
+    .r-contact a:hover { color: #fff; }
+
+    /* Body */
+    .r-body {
+      display: grid; grid-template-columns: 1fr 2fr;
+    }
+
+    /* Sidebar */
+    .r-sidebar {
+      background: #f1f5f9;
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.75rem;
+    }
+
+    /* Main */
+    .r-main { padding: 2rem 2.5rem; }
+
+    /* Section */
+    .r-section { margin-bottom: 2rem; }
+    .r-section:last-child { margin-bottom: 0; }
+
+    .r-section-title {
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--accent); margin-bottom: 1rem;
+      padding-bottom: .4rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* Skill chips */
+    .skill-category { margin-bottom: 1.1rem; }
+    .skill-category h4 {
+      font-size: .78rem; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: .45rem;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .chip {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 5px; padding: .2rem .55rem;
+      font-size: .75rem; color: var(--text-secondary);
+    }
+    .chip.accent-chip {
+      background: var(--accent-light); border-color: #bfdbfe;
+      color: var(--accent); font-weight: 500;
+    }
+
+    /* Cert list */
+    .cert-list { list-style: none; }
+    .cert-list li {
+      font-size: .82rem; color: var(--text-secondary);
+      padding: .35rem 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .cert-list li:last-child { border-bottom: none; }
+    .cert-list li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+    /* Objective */
+    .objective-text {
+      font-size: .88rem; color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Entry (project / experience / education) */
+    .entry { margin-bottom: 1.5rem; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 1rem; flex-wrap: wrap;
+    }
+    .entry-title { font-size: .98rem; font-weight: 700; }
+    .entry-sub {
+      font-size: .82rem; color: var(--accent);
+      font-weight: 500; margin-top: .1rem;
+    }
+    .entry-date {
+      font-size: .78rem; color: var(--text-secondary);
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 5px; padding: .18rem .55rem;
+      white-space: nowrap;
+    }
+    .entry-body {
+      margin-top: .6rem;
+      font-size: .84rem; color: var(--text-secondary); line-height: 1.65;
+    }
+    .entry-body ul { padding-left: 1.1rem; }
+    .entry-body li { margin-bottom: .25rem; }
+    .entry-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+    .entry-tags span {
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid #bfdbfe; border-radius: 5px;
+      padding: .15rem .5rem; font-size: .72rem; font-weight: 500;
+    }
+
+    /* Education score */
+    .edu-score {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--accent-light); border: 1px solid #bfdbfe;
+      border-radius: 5px; padding: .2rem .65rem;
+      font-size: .78rem; font-weight: 700; color: var(--accent);
+      margin-top: .4rem;
+    }
+
+    /* Github link */
+    .gh-link {
+      font-size: .76rem; color: var(--accent);
+      text-decoration: none; display: inline-flex;
+      align-items: center; gap: .25rem;
+    }
+    .gh-link:hover { text-decoration: underline; }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .back-btn, .print-btn { display: none; }
+      .resume { box-shadow: none; border: none; border-radius: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .r-body { grid-template-columns: 1fr; }
+      .r-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .r-header { padding: 1.75rem 1.5rem; }
+      .r-main { padding: 1.5rem; }
+      .r-sidebar { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div style="max-width:860px;margin:0 auto;">
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+    <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+
+  <div class="resume">
+
+    <!-- HEADER -->
+    <div class="r-header">
+      <h1>Kandula Madhu Kondaiah</h1>
+      <div class="tagline">Information Technology Graduate &bull; ML Engineer &bull; Full-Stack Developer</div>
+      <div class="r-contact">
+        <a href="mailto:madhukondaiah1@gmail.com">✉ madhukondaiah1@gmail.com</a>
+        <a href="tel:+917416696421">📞 +91 7416696421</a>
+        <span>📍 Dachepalli, Andhra Pradesh</span>
+        <a href="https://github.com/madhukondaiah" target="_blank">⌥ github.com/madhukondaiah</a>
+      </div>
+    </div>
+
+    <div class="r-body">
+
+      <!-- SIDEBAR -->
+      <aside class="r-sidebar">
+
+        <div class="r-section">
+          <div class="r-section-title">Languages</div>
+          <div class="skill-category">
+            <div class="chips">
+              <span class="chip accent-chip">Python</span>
+              <span class="chip accent-chip">Java</span>
+              <span class="chip accent-chip">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-section-title">Frontend</div>
+          <div class="chips">
+            <span class="chip">HTML5</span>
+            <span class="chip">CSS3</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">JSP</span>
+          </div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-section-title">ML / AI</div>
+          <div class="chips">
+            <span class="chip accent-chip">TensorFlow</span>
+            <span class="chip accent-chip">Scikit-learn</span>
+            <span class="chip accent-chip">LangChain</span>
+            <span class="chip accent-chip">Groq API</span>
+            <span class="chip accent-chip">RAG</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">NumPy</span>
+          </div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-section-title">Frameworks &amp; Tools</div>
+          <div class="chips">
+            <span class="chip">Streamlit</span>
+            <span class="chip">Flask</span>
+            <span class="chip">Git / GitHub</span>
+            <span class="chip">Salesforce</span>
+            <span class="chip">AWS</span>
+            <span class="chip">VS Code</span>
+            <span class="chip">Eclipse</span>
+          </div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-section-title">Certifications</div>
+          <ul class="cert-list">
+            <li>NPTEL Cloud Computing</li>
+            <li>Celonis Business Analyst</li>
+            <li>Cybersecurity Fundamentals</li>
+            <li>Machine Learning with Python</li>
+          </ul>
+        </div>
+
+      </aside>
+
+      <!-- MAIN -->
+      <main class="r-main">
+
+        <!-- OBJECTIVE -->
+        <div class="r-section">
+          <div class="r-section-title">Career Objective</div>
+          <p class="objective-text">
+            Seeking a responsible career opportunity to expand my knowledge and skills, while making a significant contribution to the success of the company. Passionate about learning emerging trends in technology, particularly in Machine Learning, AI, and full-stack development.
+          </p>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="r-section">
+          <div class="r-section-title">Education</div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">B.Tech – Information Technology</div>
+                <div class="entry-sub">Vasireddy Venkatadri Institute of Technology, Guntur</div>
+              </div>
+              <span class="entry-date">2021 – 2025</span>
+            </div>
+            <div style="margin-top:.4rem;"><span class="edu-score">CGPA: 8.28</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Board of Intermediate – MPC</div>
+                <div class="entry-sub">Shastra Junior College, Vijayawada</div>
+              </div>
+              <span class="entry-date">2019 – 2021</span>
+            </div>
+            <div style="margin-top:.4rem;"><span class="edu-score">Score: 95%</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Board of Secondary Education</div>
+                <div class="entry-sub">Sri Chaitanya School, Dachepalli</div>
+              </div>
+              <span class="entry-date">2018 – 2019</span>
+            </div>
+            <div style="margin-top:.4rem;"><span class="edu-score">GPA: 9.7</span></div>
+          </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="r-section">
+          <div class="r-section-title">Projects</div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Comparative Analysis of HCC &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/machine-learning-classification-of-HCC" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">Dec 2024 – Apr 2025</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Developed an interactive dashboard to analyze patient data and predict HCC as Viral or Non-Viral.</li>
+                <li>Implemented Random Forest, Logistic Regression, Decision Tree, and Stacking Classifier models.</li>
+                <li>Achieved a <strong>ROC-AUC score of 0.97</strong> with the Stacking Classifier.</li>
+                <li>Built a Flask web app with full frontend (HTML/CSS/JS) and backend (Python/ML models).</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Python</span><span>Scikit-learn</span><span>Flask</span><span>Pandas</span><span>Matplotlib</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Multi-Document RAG with Groq &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/multi-doc-rag-groq" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">2024 – 2025</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Built a Retrieval-Augmented Generation (RAG) system that processes multiple documents simultaneously.</li>
+                <li>Integrated Groq LLM API for fast, accurate contextual responses across uploaded files.</li>
+                <li>Developed an interactive Streamlit interface for real-time document Q&amp;A.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Python</span><span>LangChain</span><span>Groq API</span><span>Streamlit</span><span>RAG</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">ANN Customer Churn Prediction &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/ANN-Classification-Churn" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">2024</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Trained an Artificial Neural Network to classify customer churn using the Churn Modelling dataset.</li>
+                <li>Built a Streamlit app for real-time single-customer churn predictions.</li>
+                <li>Implemented feature preprocessing with label encoders, one-hot encoder, and standard scaler.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>TensorFlow</span><span>Keras</span><span>Streamlit</span><span>Scikit-learn</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Learning Resource Hub &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/learning-resource-hub" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">Feb – Apr 2024</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Built a student portal enabling navigation of subject-wise courses and downloadable PDFs.</li>
+                <li>Implemented login/signup via Java Servlets and JSP pages.</li>
+                <li>Integrated tests, video lectures, and notes across multiple disciplines.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Java</span><span>JSP</span><span>HTML/CSS</span><span>JavaScript</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Streamlit AI Chatbot &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/streamlit-chatbot" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">2024</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Developed an interactive conversational AI chatbot with a Streamlit web interface.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Python</span><span>Streamlit</span><span>AI</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Salesforce Development Project &nbsp;<a class="gh-link" href="https://github.com/madhukondaiah/salesforces" target="_blank">⌥ GitHub</a></div>
+              </div>
+              <span class="entry-date">2024</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Implemented Apex triggers, declarative flows, and Lightning Web Components.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Salesforce</span><span>Apex</span><span>LWC</span></div>
+          </div>
+        </div>
+
+        <!-- INTERNSHIPS -->
+        <div class="r-section">
+          <div class="r-section-title">Internships</div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Salesforce Developer</div>
+                <div class="entry-sub">Salesforce &amp; Skill Up — Virtual Internship</div>
+              </div>
+              <span class="entry-date">May – Jun 2024</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Enhanced expertise in Apex testing, types of flows, VS Code setup, and Lightning Web Components.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>Apex</span><span>LWC</span><span>Salesforce Flows</span></div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Data Analyst</div>
+                <div class="entry-sub">AWS &amp; Skill Up — Data Analytics Internship</div>
+              </div>
+              <span class="entry-date">Dec 2022 – Feb 2023</span>
+            </div>
+            <div class="entry-body">
+              <ul>
+                <li>Hands-on experience in data preparation, validation, visualizations, and statistical analysis on AWS.</li>
+              </ul>
+            </div>
+            <div class="entry-tags"><span>AWS</span><span>Data Analytics</span><span>Visualization</span></div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>
