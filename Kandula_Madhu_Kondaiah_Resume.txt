@@ -1,0 +1,130 @@
+KANDULA MADHU KONDAIAH
+Email: madhukondaiah1@gmail.com
+Phone: +91 7416696421
+Location: Dachepalli, Andhra Pradesh
+GitHub: https://github.com/madhukondaiah
+Portfolio: https://madhukondaiah.github.io
+
+--------------------------------------------------------
+CAREER OBJECTIVE
+--------------------------------------------------------
+Results-driven Information Technology graduate seeking a responsible career opportunity to apply skills in Machine Learning, Artificial Intelligence, and Full-Stack Development. Passionate about building data-driven solutions and learning emerging technologies to contribute significantly to organizational goals.
+
+--------------------------------------------------------
+EDUCATION
+--------------------------------------------------------
+Bachelor of Technology - Information Technology
+Vasireddy Venkatadri Institute of Technology, Guntur, Andhra Pradesh
+November 2021 - June 2025
+CGPA: 8.28
+
+Board of Intermediate Education - MPC
+Shastra Junior College, Vijayawada, Andhra Pradesh
+June 2019 - April 2021
+Score: 95%
+
+Board of Secondary Education
+Sri Chaitanya School, Dachepalli, Andhra Pradesh
+June 2018 - April 2019
+GPA: 9.7
+
+--------------------------------------------------------
+TECHNICAL SKILLS
+--------------------------------------------------------
+Programming Languages: Python, Java, SQL
+Frontend Technologies: HTML5, CSS3, JavaScript, JSP
+Machine Learning / AI: TensorFlow, Keras, Scikit-learn, LangChain, Groq API, RAG (Retrieval-Augmented Generation)
+Frameworks and Tools: Streamlit, Flask, Git, GitHub, Salesforce, AWS, Pandas, NumPy, Matplotlib
+Development Tools: VS Code, Eclipse IDE
+Platforms: Salesforce CRM, Amazon Web Services (AWS)
+
+--------------------------------------------------------
+PROJECTS
+--------------------------------------------------------
+Comparative Analysis of HCC (Hepatocellular Carcinoma)
+GitHub: https://github.com/madhukondaiah/machine-learning-classification-of-HCC
+December 2024 - April 2025
+- Developed an interactive web dashboard to analyze patient data and predict HCC results as Viral or Non-Viral.
+- Implemented and compared multiple machine learning models: Random Forest, Logistic Regression, Decision Tree, and Stacking Classifier.
+- Achieved a ROC-AUC score of 0.97 using the Stacking Classifier, demonstrating excellent model discrimination.
+- Built a full-stack Flask web application with HTML/CSS/JavaScript frontend and Python/ML backend.
+- Created data-driven visualizations to compare model performance and support clinical decision-making.
+Technologies: Python, Scikit-learn, Flask, Pandas, NumPy, Matplotlib, HTML, CSS, JavaScript
+
+Multi-Document RAG System with Groq LLM
+GitHub: https://github.com/madhukondaiah/multi-doc-rag-groq
+2024 - 2025
+- Built a Retrieval-Augmented Generation (RAG) pipeline that processes and indexes multiple documents simultaneously.
+- Integrated Groq LLM API for fast, context-aware question answering across uploaded documents.
+- Developed an interactive Streamlit web interface for real-time document Q&A.
+- Implemented semantic search and vector-based document retrieval using LangChain.
+Technologies: Python, LangChain, Groq API, Streamlit, RAG, Vector Store
+
+ANN Customer Churn Prediction
+GitHub: https://github.com/madhukondaiah/ANN-Classification-Churn
+2024
+- Trained an Artificial Neural Network (ANN) model to predict customer churn using the Churn Modelling dataset.
+- Implemented feature preprocessing pipeline with Label Encoder, One-Hot Encoder, and Standard Scaler.
+- Developed a real-time prediction Streamlit application for single-customer churn probability.
+- Saved and deployed trained model artifacts including .h5 model and .pkl preprocessor files.
+Technologies: Python, TensorFlow, Keras, Scikit-learn, Streamlit, Pandas
+
+Learning Resource Hub
+GitHub: https://github.com/madhukondaiah/learning-resource-hub
+February 2024 - April 2024
+- Built a centralized student portal enabling users to access subject-wise courses, video lectures, and downloadable PDFs.
+- Implemented user authentication (login and signup) using Java Servlets and JSP.
+- Developed responsive frontend with HTML5, CSS3, and JavaScript across multiple subject pages.
+- Integrated quiz and self-assessment modules for student evaluation.
+Technologies: Java, JSP, HTML5, CSS3, JavaScript, Apache Tomcat
+
+Streamlit AI Chatbot
+GitHub: https://github.com/madhukondaiah/streamlit-chatbot
+2024
+- Developed an interactive conversational AI chatbot with a clean, user-friendly Streamlit web interface.
+Technologies: Python, Streamlit, AI/LLM Integration
+
+Salesforce Development Project
+GitHub: https://github.com/madhukondaiah/salesforces
+2024
+- Implemented Apex triggers for automated business logic in Salesforce CRM.
+- Developed Lightning Web Components (LWC) for dynamic UI interactions.
+- Configured declarative automation using Salesforce Flows.
+Technologies: Salesforce Apex, Lightning Web Components, Salesforce Flows
+
+--------------------------------------------------------
+INTERNSHIPS
+--------------------------------------------------------
+Salesforce Developer - Virtual Internship
+Salesforce and Skill Up
+May 2024 - June 2024
+- Enhanced technical expertise in Salesforce development including Apex testing and debugging.
+- Worked with various types of Salesforce Flows for process automation.
+- Configured VS Code setup for Salesforce development environment.
+- Built and deployed Lightning Web Components (LWC) for Salesforce applications.
+Skills Used: Salesforce Apex, LWC, Salesforce Flows, VS Code, CRM Development
+
+Data Analyst - Internship
+AWS and Skill Up
+December 2022 - February 2023
+- Gained hands-on experience in data preparation, cleaning, and validation using AWS tools.
+- Created data visualizations to interpret trends and support business insights.
+- Performed statistical analysis to identify patterns and anomalies in datasets.
+- Conducted data quality testing to ensure reliability and accuracy of analytical outputs.
+Skills Used: AWS, Data Analytics, Data Visualization, Statistical Analysis, Data Quality
+
+--------------------------------------------------------
+CERTIFICATIONS
+--------------------------------------------------------
+- NPTEL Cloud Computing
+- Celonis Business Analyst
+- Cybersecurity Fundamentals
+- Machine Learning with Python
+
+--------------------------------------------------------
+ACHIEVEMENTS
+--------------------------------------------------------
+- Achieved ROC-AUC score of 0.97 in HCC classification project using Stacking Classifier.
+- Maintained CGPA of 8.28 throughout B.Tech program in Information Technology.
+- Secured 95% in Board of Intermediate Education (MPC stream).
+- Completed 2 industry internships in Salesforce Development and AWS Data Analytics.
