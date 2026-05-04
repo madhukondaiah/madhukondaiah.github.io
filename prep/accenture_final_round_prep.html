@@ -1,0 +1,199 @@
+
+<h2 class="sr-only">Accenture final round interview prep — managerial, HR, and GenAI conceptual questions</h2>
+
+<style>
+  .wrap { font-family: var(--font-sans); padding: 1rem 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1.25rem; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
+  .stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+  .progress-bar-wrap { height: 4px; background: var(--color-background-secondary); border-radius: 4px; margin-bottom: 1.25rem; overflow: hidden; }
+  .progress-bar-fill { height: 4px; background: var(--color-border-primary); border-radius: 4px; transition: width 0.3s; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--color-text-tertiary); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .cat-pill { padding: 5px 12px; border-radius: 999px; font-size: 12px; cursor: pointer; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); transition: all 0.15s; }
+  .cat-pill.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .reveal-all-btn { font-size: 12px; color: var(--color-text-secondary); background: none; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 5px 12px; cursor: pointer; margin-bottom: 1rem; }
+  .reveal-all-btn:hover { background: var(--color-background-secondary); }
+  .q-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s; }
+  .q-card:hover { border-color: var(--color-border-secondary); }
+  .q-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-badge { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; margin-top: 2px; flex-shrink: 0; }
+  .badge-hr { background: #FAEEDA; color: #633806; }
+  .badge-genai { background: #EEEDFE; color: #3C3489; }
+  .badge-mgr { background: #E1F5EE; color: #0F6E56; }
+  .badge-system { background: #FBEAF0; color: #72243E; }
+  .q-text { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.5; flex: 1; }
+  .q-toggle { font-size: 12px; color: var(--color-text-tertiary); flex-shrink: 0; margin-top: 2px; }
+  .q-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--color-border-tertiary); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; }
+  .q-answer.show { display: block; }
+  .q-answer strong { font-weight: 500; color: var(--color-text-primary); }
+  .q-answer .tip { background: var(--color-background-secondary); border-left: 2px solid var(--color-border-secondary); padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-top: 8px; font-size: 12px; color: var(--color-text-secondary); }
+  .note-banner { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.25rem; }
+  .note-banner strong { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<div class="wrap">
+  <div class="note-banner"><strong>Accenture Final Round</strong> — Managerial + HR focus. No coding expected. Be conversational, use STAR for behavioral questions, keep answers to 2-3 minutes each.</div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" id="total">0</div><div class="stat-lbl">Total questions</div></div>
+    <div class="stat-card"><div class="stat-val" id="reviewed">0</div><div class="stat-lbl">Reviewed</div></div>
+    <div class="stat-card"><div class="stat-val" id="remain">0</div><div class="stat-lbl">Remaining</div></div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress" style="width:0%"></div></div>
+
+  <div class="section-label">Filter by topic</div>
+  <div class="cat-pills" id="cats"></div>
+  <button class="reveal-all-btn" onclick="revealAll()">Show all answers</button>
+  <div id="qlist"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    cat: "HR",
+    badge: "badge-hr",
+    q: "Tell me about yourself.",
+    a: "<strong>2-minute structure:</strong><br>1. <strong>Current role:</strong> 'I'm a Generative AI Developer at Cognizant with 3+ years, working on an internal IT AI team'<br>2. <strong>Core work:</strong> 'I build multi-agent pipelines using Neuro SAN, LangChain, and Azure OpenAI — RAG systems, agentic orchestration, and AI evaluation pipelines'<br>3. <strong>Key win:</strong> 'Recently built an evaluation framework for our internal assistant that measures tool accuracy using streaming response parsing and Azure AI Foundry evaluators'<br>4. <strong>Why here:</strong> 'I'm looking to apply this expertise at enterprise scale across diverse industries, which is exactly what Accenture offers'<br><div class='tip'>Practice this out loud until it feels natural — this is always the opener</div>"
+  },
+  {
+    cat: "HR",
+    badge: "badge-hr",
+    q: "Why do you want to join Accenture?",
+    a: "<strong>3 angles to cover:</strong><br>1. <strong>Scale:</strong> 'Accenture deploys AI at enterprise scale across Fortune 500 clients — I want to see how GenAI solutions work beyond internal prototypes in production environments'<br>2. <strong>Breadth:</strong> 'Working across BFSI, healthcare, retail verticals will broaden my AI application experience significantly'<br>3. <strong>AI direction:</strong> 'Accenture's focus on AI-first transformation and its OpenAI partnership aligns directly with my background in agentic pipelines and RAG systems'<br><div class='tip'>Avoid saying brand name, salary, or job security — focus on the work and growth you want</div>"
+  },
+  {
+    cat: "HR",
+    badge: "badge-hr",
+    q: "What is your notice period and expected CTC?",
+    a: "<strong>Notice period:</strong> State your actual notice period. If 2 months, mention: 'I can discuss early release or buyout with my current employer depending on the opportunity'<br><br><strong>On CTC — don't reveal first if possible:</strong> 'I'm looking at a range of X–Y based on market benchmarks for this role and my 3 years of specialized GenAI experience'<br><br><strong>If they insist on current CTC:</strong> share it, then immediately follow with: 'Given the scope of this role and market rates, I'm expecting [30–40% hike minimum]'<br><div class='tip'>You have Altimetrik also progressing — don't show urgency. That gives you negotiation leverage on both sides</div>"
+  },
+  {
+    cat: "HR",
+    badge: "badge-hr",
+    q: "Where do you see yourself in 3 years?",
+    a: "<strong>Good answer structure:</strong><br>'In 3 years, I see myself as a Senior AI Engineer or Tech Lead, owning end-to-end GenAI solution design for enterprise clients — from architecture to deployment to evaluation'<br><br>'At Accenture, the exposure to multiple clients and domains would accelerate that growth significantly compared to an internal team. I'd want to build expertise specifically in production AI systems at scale — not just building them but also measuring and improving their business impact'<br><div class='tip'>Tie your answer back to what Accenture specifically offers — client variety, scale, upskilling programs</div>"
+  },
+  {
+    cat: "HR",
+    badge: "badge-hr",
+    q: "What is your biggest strength and weakness?",
+    a: "<strong>Strength (pick one, back it with evidence):</strong><br>'My strongest skill is taking ambiguous AI problems and breaking them into structured, deliverable solutions. For example, when tasked with evaluating our internal AI assistant, I defined the metrics, built the streaming response parser, and delivered a working evaluation pipeline from scratch'<br><br><strong>Weakness (be honest but show self-awareness):</strong><br>'I sometimes go deep into technical details when a high-level summary would serve better. I've been working on this by time-boxing deep dives and leading with the outcome before the approach in stakeholder discussions'<br><div class='tip'>Never say 'I'm a perfectionist' — it sounds rehearsed. A real, growth-framed weakness is always better</div>"
+  },
+  {
+    cat: "Managerial",
+    badge: "badge-mgr",
+    q: "Tell me about a time you handled a conflict in a team.",
+    a: "<strong>STAR format:</strong><br><strong>Situation:</strong> During a project, there was a disagreement between team members on which framework to use for the multi-agent pipeline<br><strong>Task:</strong> As the developer driving the technical decision, I needed to resolve this without derailing the timeline<br><strong>Action:</strong> I proposed doing a structured comparison across key criteria — performance, ease of integration, community support. Ran a small PoC with each option and presented findings objectively to the team and stakeholder (Nagarajan)<br><strong>Result:</strong> Team aligned on the approach based on evidence, not preference — reduced friction and we delivered on time<br><div class='tip'>Use your multi-agent framework comparison project here — it's a real example of data-driven conflict resolution</div>"
+  },
+  {
+    cat: "Managerial",
+    badge: "badge-mgr",
+    q: "Describe a time you had to learn a new technology quickly to deliver a project.",
+    a: "<strong>STAR format:</strong><br><strong>Situation:</strong> Was asked to integrate Neuro SAN (Cognizant AI Labs framework) into our pipeline — I had no prior experience with it<br><strong>Task:</strong> Deliver a working multi-agent prototype within the sprint<br><strong>Action:</strong> Read HOCON config documentation, studied existing agent configs, ran small test agents first, then extended the SummarizationMiddleware to support Azure OpenAI with both key and MSI auth modes<br><strong>Result:</strong> Delivered working integration on time, also documented findings for the team<br><div class='tip'>You can also use Google ADK, Azure AI Foundry, or MCP as examples here — pick whichever fits the timeline best</div>"
+  },
+  {
+    cat: "Managerial",
+    badge: "badge-mgr",
+    q: "How do you handle pressure and tight deadlines?",
+    a: "<strong>Answer structure:</strong><br>'I handle pressure by breaking the deliverable into the smallest shippable unit first — what's the minimum that needs to work by the deadline — then prioritize ruthlessly'<br><br>'For example, during a hackathon project I had to ship a working multi-agent prototype quickly. I scoped it down to core agent interactions first, got that working, then layered additional features. That approach keeps momentum and avoids last-minute panic'<br><br>'I also communicate early if scope needs to change — surprises at the deadline are worse than honest updates mid-way'<br><div class='tip'>Keep this grounded and practical — avoid generic answers like 'I work well under pressure'</div>"
+  },
+  {
+    cat: "Managerial",
+    badge: "badge-mgr",
+    q: "How do you explain a complex AI concept to a non-technical stakeholder?",
+    a: "<strong>Approach:</strong><br>'I use analogy first, then business impact, and leave the technical details for whoever wants to go deeper'<br><br><strong>Example:</strong> 'When explaining RAG to a business stakeholder, I said: imagine the LLM is a very smart consultant, but without access to your company's documents. RAG is like giving that consultant a filing cabinet of your internal policies before every meeting — they now answer from your actual data, not generic knowledge'<br><br>'I then connect it to the business outcome: fewer wrong answers, traceable sources, no costly retraining when policies change'<br><div class='tip'>Accenture is consulting-heavy — showing you can bridge technical and business language is a big plus here</div>"
+  },
+  {
+    cat: "GenAI",
+    badge: "badge-genai",
+    q: "What GenAI projects have you built? Walk me through one end to end.",
+    a: "<strong>Structure (2–3 mins):</strong><br><strong>Project:</strong> OneCAssistant evaluation pipeline at Cognizant<br><strong>Problem:</strong> No way to measure if our internal AI assistant was calling the right tools with the right parameters<br><strong>What I built:</strong> A streaming response parser that reads AGENT_TOOL_RESULT chunks from the assistant's output and extracts structured tool_calls and tool_definitions — then feeds them into an evaluator that checks accuracy<br><strong>Tech used:</strong> Python, Azure OpenAI, custom streaming parser, RAGAS-style metrics<br><strong>Outcome:</strong> First measurable baseline for tool accuracy in the assistant — enabled data-driven improvements<br><div class='tip'>Pick the project you're most comfortable explaining clearly. The evaluation pipeline or Neuro SAN integration both work well here</div>"
+  },
+  {
+    cat: "GenAI",
+    badge: "badge-genai",
+    q: "How do you ensure an AI system you build is responsible and safe?",
+    a: "<strong>Multi-layered approach:</strong><br>1. <strong>Evaluation before deployment:</strong> measure groundedness, faithfulness, hate/unfairness, task completion using Azure AI Foundry RAI evaluators<br>2. <strong>Prompt guardrails:</strong> restrict LLM to defined scope in system prompt, add explicit refusal instructions for out-of-scope queries<br>3. <strong>Content safety filters:</strong> Azure AI Content Safety for PII detection and harmful output filtering<br>4. <strong>Human-in-the-loop:</strong> low-confidence outputs escalate to human review rather than auto-responding<br>5. <strong>Monitoring:</strong> log inputs/outputs, track drift in response quality over time<br><div class='tip'>Your RAI metrics mapping work (36 evaluators in Azure AI Foundry) is exactly what Accenture's enterprise clients need — mention it specifically</div>"
+  },
+  {
+    cat: "GenAI",
+    badge: "badge-genai",
+    q: "What are agents in the context of AI? How are they different from a simple LLM call?",
+    a: "<strong>Simple LLM call:</strong> input → model → output. One shot, no memory, no tools, no iteration<br><br><strong>AI Agent:</strong> LLM + tools + memory + reasoning loop. The agent can:<br>— Decide which tool to call based on the task<br>— Observe the tool result and reason about next steps<br>— Iterate until the task is complete<br>— Maintain context across steps<br><br><strong>Example from your work:</strong> In Neuro SAN, each agent receives a query, decides if it can answer or needs to delegate to a sub-agent via aaosa_call, gets the sub-agent's response, and synthesizes a final answer — that's a full agent reasoning loop<br><div class='tip'>This question tests whether you actually understand agents vs just using the word — ground it in your real experience</div>"
+  },
+  {
+    cat: "System",
+    badge: "badge-system",
+    q: "How would you approach building a GenAI solution for a new enterprise client you've never worked with?",
+    a: "<strong>Discovery first:</strong><br>1. <strong>Understand the business problem</strong> — what decision or process is being improved? What does success look like in business terms?<br>2. <strong>Data audit</strong> — what data exists, what's its quality, where does it live, what are the access restrictions?<br>3. <strong>Use case scoping</strong> — is this RAG, classification, summarization, agentic automation? Pick the simplest solution that solves the problem<br>4. <strong>PoC first</strong> — build a small working prototype to validate the approach before full build<br>5. <strong>Evaluation plan</strong> — define metrics upfront: how will we know it's working?<br>6. <strong>Compliance check</strong> — data privacy, regulatory requirements, PII handling<br><div class='tip'>Accenture is consulting-led — showing you start with business problem not technology first is the right instinct here</div>"
+  }
+];
+
+const state = { activeCat: 'All', revealed: new Set() };
+
+function getCats() {
+  return ['All', ...new Set(questions.map(q => q.cat))];
+}
+
+function renderCats() {
+  document.getElementById('cats').innerHTML = getCats().map(c =>
+    `<button class="cat-pill ${state.activeCat === c ? 'active' : ''}" onclick="filterCat('${c}')">${c}</button>`
+  ).join('');
+}
+
+function filterCat(cat) {
+  state.activeCat = cat;
+  renderCats();
+  renderQuestions();
+}
+
+function renderQuestions() {
+  const filtered = questions.filter(q => state.activeCat === 'All' || q.cat === state.activeCat);
+  const el = document.getElementById('qlist');
+  el.innerHTML = filtered.map((q, i) => {
+    const id = 'q' + questions.indexOf(q);
+    const isRev = state.revealed.has(id);
+    return `<div class="q-card ${isRev ? 'revealed' : ''}" id="card-${id}" onclick="toggle('${id}')">
+      <div class="q-header">
+        <span class="q-badge ${q.badge}">${q.cat}</span>
+        <span class="q-text">${q.q}</span>
+        <span class="q-toggle">${isRev ? '▲' : '▼'}</span>
+      </div>
+      <div class="q-answer ${isRev ? 'show' : ''}">${q.a}</div>
+    </div>`;
+  }).join('');
+  updateStats();
+}
+
+function toggle(id) {
+  const card = document.getElementById('card-' + id);
+  const ans = card.querySelector('.q-answer');
+  const tog = card.querySelector('.q-toggle');
+  const open = ans.classList.contains('show');
+  ans.classList.toggle('show', !open);
+  tog.textContent = open ? '▼' : '▲';
+  card.classList.toggle('revealed', !open);
+  open ? state.revealed.delete(id) : state.revealed.add(id);
+  updateStats();
+}
+
+function revealAll() {
+  questions.filter(q => state.activeCat === 'All' || q.cat === state.activeCat)
+    .forEach(q => state.revealed.add('q' + questions.indexOf(q)));
+  renderQuestions();
+}
+
+function updateStats() {
+  const total = questions.length;
+  const rev = state.revealed.size;
+  document.getElementById('total').textContent = total;
+  document.getElementById('reviewed').textContent = rev;
+  document.getElementById('remain').textContent = total - rev;
+  document.getElementById('progress').style.width = Math.round((rev / total) * 100) + '%';
+}
+
+renderCats();
+renderQuestions();
+</script>

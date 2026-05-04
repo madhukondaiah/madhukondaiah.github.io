@@ -1,0 +1,345 @@
+
+<h2 class="sr-only">Interview Q&A prep tool for Altimetrik L2 and Accenture final round AI Engineer roles</h2>
+
+<style>
+  .prep-wrap { font-family: var(--font-sans); padding: 1rem 0; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .tab-btn { padding: 8px 18px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .tab-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--color-background-secondary); }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--color-text-tertiary); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
+  .stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+  .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .cat-pill { padding: 5px 12px; border-radius: 999px; font-size: 12px; cursor: pointer; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); transition: all 0.15s; }
+  .cat-pill.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .q-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s; }
+  .q-card:hover { border-color: var(--color-border-secondary); }
+  .q-card.revealed { border-color: var(--color-border-secondary); }
+  .q-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-badge { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; margin-top: 2px; flex-shrink: 0; }
+  .badge-rag { background: #E1F5EE; color: #0F6E56; }
+  .badge-llm { background: #EEEDFE; color: #3C3489; }
+  .badge-agents { background: #FAECE7; color: #993C1D; }
+  .badge-python { background: #EAF3DB; color: #27500A; }
+  .badge-azure { background: #E6F1FB; color: #0C447C; }
+  .badge-hr { background: #FAEEDA; color: #633806; }
+  .badge-system { background: #FBEAF0; color: #72243E; }
+  .badge-eval { background: #F1EFE8; color: #444441; }
+  .q-text { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.5; flex: 1; }
+  .q-toggle { font-size: 12px; color: var(--color-text-tertiary); margin-left: auto; flex-shrink: 0; margin-top: 2px; }
+  .q-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--color-border-tertiary); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; }
+  .q-answer.show { display: block; }
+  .q-answer strong { font-weight: 500; color: var(--color-text-primary); }
+  .q-answer .tip { background: var(--color-background-secondary); border-left: 2px solid var(--color-border-secondary); padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-top: 8px; font-size: 12px; color: var(--color-text-secondary); }
+  .q-answer code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-secondary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+  .progress-bar-wrap { height: 4px; background: var(--color-background-secondary); border-radius: 4px; margin-bottom: 1.5rem; overflow: hidden; }
+  .progress-bar-fill { height: 4px; background: var(--color-border-primary); border-radius: 4px; transition: width 0.3s; }
+  .empty-state { text-align: center; padding: 2rem; color: var(--color-text-tertiary); font-size: 14px; }
+  .reveal-all-btn { font-size: 12px; color: var(--color-text-secondary); background: none; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 5px 12px; cursor: pointer; margin-bottom: 1rem; }
+  .reveal-all-btn:hover { background: var(--color-background-secondary); }
+</style>
+
+<div class="prep-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('altimetrik')">Altimetrik L2</button>
+    <button class="tab-btn" onclick="switchTab('accenture')">Accenture Final Round</button>
+  </div>
+
+  <div id="tab-altimetrik">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-val" id="alt-total">0</div><div class="stat-lbl">Total questions</div></div>
+      <div class="stat-card"><div class="stat-val" id="alt-revealed">0</div><div class="stat-lbl">Reviewed</div></div>
+      <div class="stat-card"><div class="stat-val" id="alt-remain">0</div><div class="stat-lbl">Remaining</div></div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="alt-progress" style="width:0%"></div></div>
+    <div class="section-label">Filter by topic</div>
+    <div class="cat-pills" id="alt-cats"></div>
+    <button class="reveal-all-btn" onclick="revealAll('altimetrik')">Show all answers</button>
+    <div id="alt-qlist"></div>
+  </div>
+
+  <div id="tab-accenture" style="display:none;">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-val" id="acc-total">0</div><div class="stat-lbl">Total questions</div></div>
+      <div class="stat-card"><div class="stat-val" id="acc-revealed">0</div><div class="stat-lbl">Reviewed</div></div>
+      <div class="stat-card"><div class="stat-val" id="acc-remain">0</div><div class="stat-lbl">Remaining</div></div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="acc-progress" style="width:0%"></div></div>
+    <div class="section-label">Filter by topic</div>
+    <div class="cat-pills" id="acc-cats"></div>
+    <button class="reveal-all-btn" onclick="revealAll('accenture')">Show all answers</button>
+    <div id="acc-qlist"></div>
+  </div>
+</div>
+
+<script>
+const data = {
+  altimetrik: [
+    {
+      cat: "RAG",
+      badge: "badge-rag",
+      q: "A client's RAG system is giving inaccurate results. You find the retrieval is the issue. What steps do you take?",
+      a: "<strong>Step-by-step approach:</strong><br>1. <strong>Diagnose chunk quality</strong> — check if chunk size is too small (loses context) or too large (dilutes relevance)<br>2. <strong>Check embedding model</strong> — is it domain-specific enough? General embeddings may miss domain terminology<br>3. <strong>Evaluate retrieval metrics</strong> — measure context recall and context precision using tools like RAGAS<br>4. <strong>Try hybrid search</strong> — combine dense (vector) + sparse (BM25) retrieval for better coverage<br>5. <strong>Add reranking layer</strong> — use a cross-encoder reranker to re-score top-k results before passing to LLM<br>6. <strong>HyDE technique</strong> — generate a hypothetical answer first, use that as query embedding instead of raw query<br><div class='tip'>In your OneC project — relate this to how you'd improve search accuracy in the Enhanced Search pipeline</div>"
+    },
+    {
+      cat: "RAG",
+      badge: "badge-rag",
+      q: "What is the difference between sparse retrieval and dense retrieval? When do you use each?",
+      a: "<strong>Sparse (BM25/TF-IDF):</strong> keyword-based, fast, no training needed, works well for exact keyword matches and domain-specific jargon<br><br><strong>Dense (embeddings/DPR):</strong> semantic meaning, captures synonyms and paraphrases, needs an embedding model, better for natural language queries<br><br><strong>Use sparse when:</strong> queries have domain-specific keywords, structured data, fast retrieval needed<br><strong>Use dense when:</strong> queries are conversational, semantic understanding required<br><strong>Best practice:</strong> Hybrid search — combine both with reciprocal rank fusion (RRF) for best results<br><div class='tip'>Pinecone and FAISS both support hybrid search — mention your vector DB experience here</div>"
+    },
+    {
+      cat: "RAG",
+      badge: "badge-rag",
+      q: "What chunking strategies do you know? What are the trade-offs?",
+      a: "<strong>Fixed-size chunking:</strong> simple, fast, but may break sentences mid-context<br><strong>Sentence/paragraph chunking:</strong> preserves meaning, variable size<br><strong>Semantic chunking:</strong> groups by meaning similarity, best quality but slowest<br><strong>Contextual chunk headers:</strong> prepend document title/section to each chunk for better retrieval<br><br><strong>Key trade-off:</strong> Smaller chunks = better precision but lower recall. Larger chunks = more context but noise increases.<br><div class='tip'>For PDFs with tables (like your document extraction work), fixed-size + overlap strategy works best</div>"
+    },
+    {
+      cat: "LLM",
+      badge: "badge-llm",
+      q: "What is hallucination in LLMs? How do you detect and reduce it?",
+      a: "<strong>Hallucination:</strong> when the LLM generates factually incorrect or fabricated content confidently<br><br><strong>Detection:</strong><br>— Groundedness evaluator (check if response is grounded in context)<br>— Faithfulness metric in RAGAS — measures if claims are supported by retrieved context<br>— External fact-checking APIs<br><br><strong>Reduction strategies:</strong><br>— RAG — ground the LLM in retrieved documents<br>— Prompt: 'Answer only using the provided context. If unsure, say I don't know.'<br>— Temperature = 0 for factual tasks<br>— Azure AI Foundry GroundednessEvaluator — you've mapped this directly<br><div class='tip'>Your work mapping 36 RAI metrics to Azure AI Foundry evaluators is gold here — mention GroundednessEvaluator specifically</div>"
+    },
+    {
+      cat: "LLM",
+      badge: "badge-llm",
+      q: "Explain the difference between zero-shot, few-shot, and chain-of-thought prompting.",
+      a: "<strong>Zero-shot:</strong> no examples given, model uses only instruction — e.g. 'Classify this sentiment: ...'<br><br><strong>Few-shot:</strong> 2-5 examples provided in prompt to guide output format and style — better for structured outputs<br><br><strong>Chain-of-thought (CoT):</strong> ask model to 'think step by step' before answering — improves reasoning for complex tasks<br><br><strong>ReAct:</strong> combines reasoning + acting — model reasons, then calls a tool, then reasons again<br><div class='tip'>In your Neuro SAN and LangChain work, CoT and ReAct are implicit in how agents plan and act — connect this</div>"
+    },
+    {
+      cat: "LLM",
+      badge: "badge-llm",
+      q: "What are the trade-offs between fine-tuning an LLM vs using RAG?",
+      a: "<strong>Fine-tuning:</strong><br>+ Bakes domain knowledge into model weights<br>+ No retrieval latency<br>— Expensive, needs labeled data, knowledge becomes stale, hard to update<br><br><strong>RAG:</strong><br>+ Easy to update (just update the knowledge base)<br>+ Transparent — can show source documents<br>+ No retraining cost<br>— Retrieval quality dependent, latency overhead<br><br><strong>When to combine:</strong> Fine-tune for tone/style/format, RAG for factual grounding<br><div class='tip'>For Altimetrik's enterprise clients — RAG is almost always preferred for maintainability</div>"
+    },
+    {
+      cat: "Agents",
+      badge: "badge-agents",
+      q: "How do multi-agent systems work? What orchestration patterns have you used?",
+      a: "<strong>Multi-agent systems:</strong> multiple LLM-powered agents with specialized roles collaborating to solve complex tasks<br><br><strong>Patterns you can speak to:</strong><br>— <strong>Sequential:</strong> output of agent A feeds into agent B (your Google ADK SequentialAgent)<br>— <strong>Parallel:</strong> multiple agents run simultaneously, results merged<br>— <strong>Hierarchical:</strong> orchestrator delegates to sub-agents (Neuro SAN aaosa_call pattern)<br>— <strong>AAOSA:</strong> Neuro SAN's ask-and-act pattern where agents recursively query sub-agents<br><br><strong>Key challenges:</strong> avoiding loops, context management, error propagation<br><div class='tip'>Mention Neuro SAN's sly_data private data channel for passing state between agents — this is a differentiator</div>"
+    },
+    {
+      cat: "Agents",
+      badge: "badge-agents",
+      q: "How do you handle memory and state in agentic pipelines?",
+      a: "<strong>Types of memory:</strong><br>— <strong>In-context:</strong> conversation history passed in the prompt (limited by context window)<br>— <strong>External:</strong> vector store / database persisted across sessions<br>— <strong>Episodic:</strong> store past interactions as embeddings for retrieval<br><br><strong>State management:</strong><br>— LangChain: ConversationBufferMemory, ConversationSummaryMemory<br>— Neuro SAN: sly_data private channel per agent<br>— Google ADK: session state object passed across agents<br><br><strong>Your SummarizationMiddleware work:</strong> token trimming + summarization to fit context window — mention this<br><div class='tip'>The async/singleton httpx.AsyncClient fix in your OpenAi.py is a good example of production-grade agent infra work</div>"
+    },
+    {
+      cat: "Agents",
+      badge: "badge-agents",
+      q: "Compare LangChain, Google ADK, and Neuro SAN for building multi-agent systems.",
+      a: "<strong>LangChain:</strong> most mature ecosystem, great for RAG + chains, Python-native, large community, but can get complex for multi-agent<br><br><strong>Google ADK:</strong> native workflow primitives (SequentialAgent, ParallelAgent), tight GCP integration, clean orchestration but less flexible HOCON config<br><br><strong>Neuro SAN:</strong> HOCON-based declarative config, built-in AAOSA orchestration, sly_data private channel, best for complex hierarchical agents — your top scorer in the comparison<br><br><strong>Key differentiator you found:</strong> Neuro SAN's declarative approach reduces boilerplate, sly_data prevents context leakage between agents<br><div class='tip'>You did a 20-feature comparison across frameworks — reference this directly as a project, it shows breadth</div>"
+    },
+    {
+      cat: "Eval",
+      badge: "badge-eval",
+      q: "How do you evaluate a RAG pipeline in production? What metrics do you use?",
+      a: "<strong>RAGAS metrics (your direct experience):</strong><br>— <strong>Faithfulness:</strong> are claims in the answer supported by retrieved context?<br>— <strong>Answer relevancy:</strong> is the answer relevant to the question?<br>— <strong>Context precision:</strong> are retrieved chunks actually useful?<br>— <strong>Context recall:</strong> did retrieval capture all relevant info?<br><br><strong>Azure AI Foundry evaluators (your direct work):</strong><br>— GroundednessEvaluator, HateUnfairnessEvaluator, TaskCompletionEvaluator<br>— azure.ai.evaluation SDK with project_client.get_openai_client()<br><br><strong>Production monitoring:</strong> track latency, retrieval hit rate, user feedback (thumbs up/down)<br><div class='tip'>Your OneCAssistant streaming response parser for tool accuracy evaluation is a perfect example answer here</div>"
+    },
+    {
+      cat: "Azure",
+      badge: "badge-azure",
+      q: "How do you authenticate to Azure OpenAI — key-based vs MSI? When do you use each?",
+      a: "<strong>Key-based (API key):</strong><br>— Simple, quick to set up<br>— Used in dev/test environments<br>— Risk: key rotation, accidental leakage<br><code>AzureOpenAI(api_key=os.environ['AZURE_OPENAI_KEY'])</code><br><br><strong>MSI (Managed Service Identity):</strong><br>— No secrets stored, identity managed by Azure<br>— Uses DefaultAzureCredential or ManagedIdentityCredential<br>— Required in production enterprise environments<br><code>DefaultAzureCredential()</code><br><br><strong>Your Neuro SAN work:</strong> you extended SummarizationMiddleware to support both via HOCON config <code>auth_mode: 'key'</code> / <code>'msi'</code> — mention this directly<br><div class='tip'>Private endpoint + VPN/DNS routing issues you debugged = shows real production experience</div>"
+    },
+    {
+      cat: "Azure",
+      badge: "badge-azure",
+      q: "What is Azure AI Foundry? How does it differ from Azure OpenAI Service?",
+      a: "<strong>Azure OpenAI Service:</strong> API access to OpenAI models (GPT-4, embeddings etc.) hosted on Azure — just model inference<br><br><strong>Azure AI Foundry:</strong> full platform — model catalog, prompt flow, evaluation SDK, tracing, RAI dashboard, deployment management<br><br><strong>Key Foundry features you've used:</strong><br>— Responsible AI evaluators (36 metrics mapped)<br>— azure.ai.evaluation SDK (v1.1.0b4 style)<br>— project_client.get_openai_client() for evaluations<br>— builtin.* evaluator names<br><div class='tip'>This is niche knowledge most candidates won't have — lead with this confidently</div>"
+    },
+    {
+      cat: "Python",
+      badge: "badge-python",
+      q: "What is asyncio? How do you handle async patterns in Python for LLM applications?",
+      a: "<strong>asyncio:</strong> Python's async I/O framework — allows concurrent execution without threads<br><br><strong>Key concepts:</strong><br>— <code>async def</code> / <code>await</code> — coroutine syntax<br>— <code>asyncio.run()</code> — entry point<br>— <code>asyncio.gather()</code> — run multiple coroutines concurrently<br>— Event loop — single-threaded scheduler<br><br><strong>Common issue you've fixed:</strong> RuntimeError: Event loop is closed — happens when reusing a closed loop. Fix: singleton <code>httpx.AsyncClient</code> pattern in OpenAi.py<br><br><strong>LLM relevance:</strong> streaming responses, parallel agent calls, async tool invocations all need proper async handling<br><div class='tip'>You literally fixed this bug in production — describe the root cause and fix clearly</div>"
+    },
+    {
+      cat: "Python",
+      badge: "badge-python",
+      q: "What are Python decorators? Write a decorator that logs function execution time.",
+      a: "<strong>Decorator:</strong> a function that wraps another function to add behavior without modifying it<br><br><code>import time, functools<br>def log_time(func):<br>&nbsp;&nbsp;@functools.wraps(func)<br>&nbsp;&nbsp;def wrapper(*args, **kwargs):<br>&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<br>&nbsp;&nbsp;&nbsp;&nbsp;result = func(*args, **kwargs)<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f'{func.__name__} took {time.time()-start:.2f}s')<br>&nbsp;&nbsp;&nbsp;&nbsp;return result<br>&nbsp;&nbsp;return wrapper</code><br><br><strong>Uses in LLM apps:</strong> rate limiting, retry logic, token counting, caching LLM responses<br><div class='tip'>This is a very common Altimetrik Python question — practice writing this on screen without looking</div>"
+    },
+    {
+      cat: "Python",
+      badge: "badge-python",
+      q: "What is the difference between threading and multiprocessing in Python? When do you use each for AI workloads?",
+      a: "<strong>Threading:</strong> shares memory, limited by GIL for CPU tasks, good for I/O-bound (API calls, network)<br><strong>Multiprocessing:</strong> separate memory, bypasses GIL, good for CPU-bound (model inference, data processing)<br><br><strong>For AI/LLM workloads:</strong><br>— Parallel LLM API calls → asyncio or ThreadPoolExecutor (I/O bound)<br>— Batch embedding generation → multiprocessing or GPU parallelism<br>— Streaming response handling → async generators<br><br><code>from concurrent.futures import ThreadPoolExecutor<br>with ThreadPoolExecutor(max_workers=5) as ex:<br>&nbsp;&nbsp;results = list(ex.map(call_llm, prompts))</code>"
+    },
+    {
+      cat: "System",
+      badge: "badge-system",
+      q: "Design a document Q&A system for an enterprise with 100K+ internal documents.",
+      a: "<strong>Architecture:</strong><br>1. <strong>Ingestion pipeline:</strong> document loader → chunking (semantic, ~512 tokens, 20% overlap) → embedding model → vector DB (Pinecone/FAISS)<br>2. <strong>Query pipeline:</strong> user query → embed → hybrid search (dense + BM25) → reranker → top-5 chunks → LLM with context<br>3. <strong>Evaluation:</strong> RAGAS groundedness + faithfulness<br>4. <strong>Infrastructure:</strong> Azure OpenAI for LLM + embeddings, Azure AI Search for hybrid retrieval, FastAPI backend<br>5. <strong>Auth:</strong> MSI for Azure services, RBAC for document access control<br><br><strong>Scaling considerations:</strong> async ingestion queue, caching frequent queries, incremental index updates<br><div class='tip'>This maps directly to your OneC Enhanced Search project — describe it as a real implementation</div>"
+    }
+  ],
+  accenture: [
+    {
+      cat: "GenAI",
+      badge: "badge-llm",
+      q: "What GenAI projects have you worked on? Walk me through one end to end.",
+      a: "<strong>Structure your answer (STAR):</strong><br><strong>Situation:</strong> Cognizant internal IT team needed AI-powered search and assistant capabilities<br><strong>Task:</strong> Build multi-agent pipeline with RAG, evaluation, and Azure OpenAI integration<br><strong>Action:</strong> Designed Neuro SAN multi-agent system with AAOSA orchestration, built RAG pipeline with vector search, implemented RAGAS-based evaluation, fixed production async bugs<br><strong>Result:</strong> Delivered OneC Enhanced Search with tool accuracy evaluation pipeline<br><br><strong>Key points to hit:</strong> end-to-end ownership, production challenges solved, measurable outcomes<br><div class='tip'>Keep this to 3 minutes max — interviewers will ask follow-up if they want more depth</div>"
+    },
+    {
+      cat: "GenAI",
+      badge: "badge-llm",
+      q: "What is RAG? Why is it preferred over fine-tuning for enterprise use cases?",
+      a: "<strong>RAG (Retrieval Augmented Generation):</strong> combines a retriever that fetches relevant documents with an LLM that generates answers grounded in those documents<br><br><strong>Why preferred for enterprise:</strong><br>— Knowledge base easily updated without retraining<br>— Source attribution — can show which document the answer came from<br>— Lower cost — no GPU-intensive fine-tuning<br>— Compliance-friendly — data stays in your controlled store<br>— Reduces hallucinations by grounding responses in real documents<br><div class='tip'>Accenture serves enterprise clients — emphasize updateability and auditability over raw capability</div>"
+    },
+    {
+      cat: "GenAI",
+      badge: "badge-llm",
+      q: "How do you prevent an LLM from going off-topic or giving incorrect answers in a production system?",
+      a: "<strong>Multi-layered approach:</strong><br>1. <strong>Prompt guardrails:</strong> 'Answer only using the provided context. If the answer is not in the context, say I don't know.'<br>2. <strong>RAG grounding:</strong> force LLM to reference retrieved documents<br>3. <strong>Output validation:</strong> check response against retrieved context using groundedness evaluator<br>4. <strong>Azure AI Content Safety:</strong> filter harmful or off-topic outputs<br>5. <strong>Temperature = 0:</strong> for factual Q&A tasks to reduce creativity/randomness<br>6. <strong>System prompt boundaries:</strong> clearly define scope in system prompt<br><div class='tip'>Azure AI Foundry's RAI evaluators (your direct work) are the enterprise answer Accenture wants to hear</div>"
+    },
+    {
+      cat: "Python",
+      badge: "badge-python",
+      q: "Write a Python function to find two numbers in an array that sum to a target. Optimize it.",
+      a: "<strong>Brute force O(n²):</strong><br><code>for i in range(len(arr)):<br>&nbsp;&nbsp;for j in range(i+1, len(arr)):<br>&nbsp;&nbsp;&nbsp;&nbsp;if arr[i]+arr[j]==target: return [i,j]</code><br><br><strong>Optimized O(n) using hashmap:</strong><br><code>def two_sum(arr, target):<br>&nbsp;&nbsp;seen = {}<br>&nbsp;&nbsp;for i, n in enumerate(arr):<br>&nbsp;&nbsp;&nbsp;&nbsp;diff = target - n<br>&nbsp;&nbsp;&nbsp;&nbsp;if diff in seen:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return [seen[diff], i]<br>&nbsp;&nbsp;&nbsp;&nbsp;seen[n] = i</code><br><br>Time: O(n) | Space: O(n)<br><div class='tip'>Accenture Bengaluru AI/ML reviews mention this exact question — practice writing it clean and fast</div>"
+    },
+    {
+      cat: "Python",
+      badge: "badge-python",
+      q: "What is the maximum profit from buying and selling a stock given daily prices?",
+      a: "<code>def max_profit(prices):<br>&nbsp;&nbsp;min_price = float('inf')<br>&nbsp;&nbsp;max_profit = 0<br>&nbsp;&nbsp;for p in prices:<br>&nbsp;&nbsp;&nbsp;&nbsp;min_price = min(min_price, p)<br>&nbsp;&nbsp;&nbsp;&nbsp;max_profit = max(max_profit, p - min_price)<br>&nbsp;&nbsp;return max_profit</code><br><br>Time: O(n) | Space: O(1)<br><br><strong>Logic:</strong> track minimum price seen so far, at each step check if selling today beats current best profit<br><div class='tip'>This was reported in Accenture AI/ML Bengaluru interview — common sliding window / greedy pattern</div>"
+    },
+    {
+      cat: "ML",
+      badge: "badge-eval",
+      q: "What is the difference between precision and recall? When do you prioritize each?",
+      a: "<strong>Precision:</strong> of all predicted positives, how many are actually positive (avoid false positives)<br><strong>Recall:</strong> of all actual positives, how many did we catch (avoid false negatives)<br><br><strong>Prioritize precision when:</strong> false positives are costly — spam filtering, fraud alerts (don't want to block legit users)<br><strong>Prioritize recall when:</strong> false negatives are costly — cancer detection, security threats (don't want to miss real cases)<br><br><strong>F1 score:</strong> harmonic mean of precision and recall — use when both matter equally<br><div class='tip'>In LLM evaluation — context precision = are retrieved chunks relevant? Context recall = did we get all the relevant chunks?</div>"
+    },
+    {
+      cat: "ML",
+      badge: "badge-eval",
+      q: "What is overfitting? How do you prevent it?",
+      a: "<strong>Overfitting:</strong> model performs well on training data but poorly on new data — memorized instead of learned<br><br><strong>Prevention techniques:</strong><br>— Regularization (L1/L2) — penalize large weights<br>— Dropout — randomly disable neurons during training<br>— Early stopping — stop training when validation loss increases<br>— Data augmentation — increase training data variety<br>— Cross-validation — k-fold to detect overfitting early<br>— Reduce model complexity — fewer parameters<br><br><strong>For LLMs:</strong> overfitting during fine-tuning → use low learning rate, small number of epochs, LoRA for parameter-efficient tuning"
+    },
+    {
+      cat: "HR",
+      badge: "badge-hr",
+      q: "Why do you want to join Accenture?",
+      a: "<strong>Key angles to cover:</strong><br>1. <strong>Scale:</strong> 'Accenture works with Fortune 500 clients — I want to see how AI solutions are deployed at enterprise scale, not just built as prototypes'<br>2. <strong>AI focus:</strong> 'Accenture's AI-first direction and investments in GenAI services align with my 3 years building agentic pipelines and RAG systems'<br>3. <strong>Growth:</strong> 'I want exposure to diverse industry verticals — BFSI, healthcare, retail — to broaden my GenAI application experience'<br>4. <strong>Specific:</strong> mention Accenture's OpenAI partnership and AI practice if relevant<br><div class='tip'>Don't say 'brand name' or 'salary' — focus on the work and growth angle</div>"
+    },
+    {
+      cat: "HR",
+      badge: "badge-hr",
+      q: "What is your notice period and expected CTC?",
+      a: "<strong>Notice period:</strong> State your actual notice period. If it's long, mention you can negotiate buyout.<br><br><strong>CTC negotiation approach:</strong><br>— Research market rate: Senior AI/ML Engineer in Hyderabad 2025 = ₹18–28 LPA range depending on company<br>— Don't reveal current CTC first if possible: 'I'm targeting X based on my market research and the responsibilities of this role'<br>— Have a number ready: aim for 30–40% hike on current CTC minimum<br>— If they push for current CTC: share it but immediately follow with expected<br><div class='tip'>You have Altimetrik also in pipeline — this is leverage. If Accenture offer comes first, use it to push Altimetrik and vice versa</div>"
+    },
+    {
+      cat: "HR",
+      badge: "badge-hr",
+      q: "Tell me about yourself.",
+      a: "<strong>Crisp 2-minute structure:</strong><br>1. <strong>Current role:</strong> 'I'm a Generative AI Developer at Cognizant with 3+ years experience, working on an internal IT AI team'<br>2. <strong>Core skills:</strong> 'I build multi-agent pipelines using Neuro SAN, LangChain, and Google ADK, with Azure OpenAI integrations and RAG-based systems'<br>3. <strong>Key achievement:</strong> 'Recently built an evaluation pipeline for our internal assistant that measures tool accuracy using streaming response parsing and RAGAS-style metrics'<br>4. <strong>Why here:</strong> 'I'm looking to apply this experience at enterprise scale with clients across diverse industries'<br><div class='tip'>Tailor the 'key achievement' to whatever is most impressive — your Neuro SAN or evaluation work are both strong</div>"
+    },
+    {
+      cat: "System",
+      badge: "badge-system",
+      q: "How would you design an AI-powered customer support chatbot for a banking client?",
+      a: "<strong>Architecture:</strong><br>1. <strong>Intent classification:</strong> classify query type (account inquiry, transaction dispute, loan info)<br>2. <strong>RAG layer:</strong> retrieve relevant policy documents, FAQs, product info from vector store<br>3. <strong>LLM generation:</strong> GPT-4 with strict system prompt and retrieved context<br>4. <strong>Guardrails:</strong> content safety, PII detection, topic restriction to banking domain<br>5. <strong>Escalation path:</strong> low-confidence answers → route to human agent<br>6. <strong>Compliance:</strong> RBI guidelines, data residency, audit logging of all interactions<br>7. <strong>Evaluation:</strong> faithfulness, task completion, hallucination rate<br><div class='tip'>Accenture has BFSI as a major vertical — showing awareness of compliance (RBI, data residency) will impress</div>"
+    },
+    {
+      cat: "HR",
+      badge: "badge-hr",
+      q: "Describe a challenging technical problem you solved. How did you approach it?",
+      a: "<strong>Use STAR method — example from your work:</strong><br><strong>Situation:</strong> Production async bug in OpenAi.py causing RuntimeError: Event loop is closed intermittently<br><strong>Task:</strong> Fix without breaking existing sync call patterns in the codebase<br><strong>Action:</strong> Diagnosed root cause — event loop being closed between requests. Implemented singleton httpx.AsyncClient pattern to reuse the client across calls, added proper lifecycle management<br><strong>Result:</strong> Eliminated the error completely, improved request performance via connection reuse<br><br><strong>Alternative:</strong> Azure AI Foundry private endpoint VPN/DNS routing issue — diagnosing auth header mismatch with Anthropic SDK<br><div class='tip'>Pick whichever feels more comfortable to explain clearly — the async bug story is crisp and technical</div>"
+    }
+  ]
+};
+
+const state = { altimetrik: { activeCat: 'All', revealed: new Set() }, accenture: { activeCat: 'All', revealed: new Set() } };
+
+function getCats(tab) {
+  const cats = ['All', ...new Set(data[tab].map(q => q.cat))];
+  return cats;
+}
+
+function renderCats(tab) {
+  const el = document.getElementById(tab === 'altimetrik' ? 'alt-cats' : 'acc-cats');
+  const cats = getCats(tab);
+  el.innerHTML = cats.map(c => `<button class="cat-pill ${state[tab].activeCat === c ? 'active' : ''}" onclick="filterCat('${tab}','${c}')">${c}</button>`).join('');
+}
+
+function filterCat(tab, cat) {
+  state[tab].activeCat = cat;
+  renderCats(tab);
+  renderQuestions(tab);
+}
+
+function renderQuestions(tab) {
+  const prefix = tab === 'altimetrik' ? 'alt' : 'acc';
+  const filtered = data[tab].filter(q => state[tab].activeCat === 'All' || q.cat === state[tab].activeCat);
+  const el = document.getElementById(prefix + '-qlist');
+  if (filtered.length === 0) { el.innerHTML = '<div class="empty-state">No questions in this category</div>'; return; }
+  el.innerHTML = filtered.map((q, i) => {
+    const id = tab + '-' + data[tab].indexOf(q);
+    const isRevealed = state[tab].revealed.has(id);
+    return `<div class="q-card ${isRevealed ? 'revealed' : ''}" id="card-${id}" onclick="toggleAnswer('${id}','${tab}')">
+      <div class="q-header">
+        <span class="q-badge ${q.badge}">${q.cat}</span>
+        <span class="q-text">${q.q}</span>
+        <span class="q-toggle">${isRevealed ? '▲' : '▼'}</span>
+      </div>
+      <div class="q-answer ${isRevealed ? 'show' : ''}">${q.a}</div>
+    </div>`;
+  }).join('');
+  updateStats(tab);
+}
+
+function toggleAnswer(id, tab) {
+  const card = document.getElementById('card-' + id);
+  const ans = card.querySelector('.q-answer');
+  const toggle = card.querySelector('.q-toggle');
+  if (ans.classList.contains('show')) {
+    ans.classList.remove('show');
+    toggle.textContent = '▼';
+    card.classList.remove('revealed');
+    state[tab].revealed.delete(id);
+  } else {
+    ans.classList.add('show');
+    toggle.textContent = '▲';
+    card.classList.add('revealed');
+    state[tab].revealed.add(id);
+  }
+  updateStats(tab);
+}
+
+function revealAll(tab) {
+  const prefix = tab === 'altimetrik' ? 'alt' : 'acc';
+  const filtered = data[tab].filter(q => state[tab].activeCat === 'All' || q.cat === state[tab].activeCat);
+  filtered.forEach(q => {
+    const id = tab + '-' + data[tab].indexOf(q);
+    state[tab].revealed.add(id);
+  });
+  renderQuestions(tab);
+}
+
+function updateStats(tab) {
+  const prefix = tab === 'altimetrik' ? 'alt' : 'acc';
+  const total = data[tab].length;
+  const revealed = state[tab].revealed.size;
+  document.getElementById(prefix + '-total').textContent = total;
+  document.getElementById(prefix + '-revealed').textContent = revealed;
+  document.getElementById(prefix + '-remain').textContent = total - revealed;
+  document.getElementById(prefix + '-progress').style.width = Math.round((revealed / total) * 100) + '%';
+}
+
+function switchTab(tab) {
+  document.getElementById('tab-altimetrik').style.display = tab === 'altimetrik' ? '' : 'none';
+  document.getElementById('tab-accenture').style.display = tab === 'accenture' ? '' : 'none';
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', (i === 0 && tab === 'altimetrik') || (i === 1 && tab === 'accenture'));
+  });
+}
+
+renderCats('altimetrik');
+renderCats('accenture');
+renderQuestions('altimetrik');
+renderQuestions('accenture');
+updateStats('altimetrik');
+updateStats('accenture');
+</script>
