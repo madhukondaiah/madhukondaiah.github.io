@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Round Prep – Kandula</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c0f;
+    --surface: #13141a;
+    --border: #1e2030;
+    --acc-purple: #7c6dfa;
+    --acc-glow: rgba(124,109,250,0.15);
+    --alt-teal: #00c9a7;
+    --alt-glow: rgba(0,201,167,0.15);
+    --text: #e8eaf0;
+    --muted: #5a5f7a;
+    --tag-bg: #1a1d28;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 56px 40px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -60px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(124,109,250,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .hero h1 span.acc { color: var(--acc-purple); }
+  .hero h1 span.alt { color: var(--alt-teal); }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+  .tab-btn {
+    padding: 18px 28px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+    top: 1px;
+  }
+  .tab-btn.active.acc { color: var(--acc-purple); border-bottom-color: var(--acc-purple); }
+  .tab-btn.active.alt { color: var(--alt-teal); border-bottom-color: var(--alt-teal); }
+  .tab-btn:hover { color: var(--text); }
+
+  /* SECTIONS */
+  .section { display: none; padding: 40px; max-width: 900px; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+  /* CONTEXT CARD */
+  .context-card {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    border: 1px solid;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .context-card.acc { background: var(--acc-glow); border-color: rgba(124,109,250,0.3); }
+  .context-card.alt { background: var(--alt-glow); border-color: rgba(0,201,167,0.3); }
+  .ctx-icon { font-size: 22px; margin-top: 2px; }
+  .ctx-body p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .ctx-body strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 4px; }
+
+  /* CATEGORY LABEL */
+  .cat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 36px;
+    padding-left: 2px;
+  }
+  .cat-label.acc { color: var(--acc-purple); }
+  .cat-label.alt { color: var(--alt-teal); }
+
+  /* QA CARDS */
+  .qa-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .qa-card:hover { border-color: #2a2d40; }
+  .qa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 18px 20px;
+    cursor: pointer;
+    gap: 12px;
+  }
+  .qa-q {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.5;
+  }
+  .qa-toggle {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    color: var(--muted);
+  }
+  .qa-card.open .qa-toggle { transform: rotate(45deg); }
+  .qa-answer {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    font-size: 13.5px;
+    color: #9da3be;
+    line-height: 1.75;
+  }
+  .qa-card.open .qa-answer { display: block; animation: fadeIn 0.2s ease; }
+  .qa-answer strong { color: var(--text); }
+  .qa-answer ul { padding-left: 18px; margin-top: 6px; }
+  .qa-answer ul li { margin-bottom: 6px; }
+  .qa-answer .tip {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .tip.acc { background: var(--acc-glow); color: #a99ffc; border-left: 2px solid var(--acc-purple); }
+  .tip.alt { background: var(--alt-glow); color: #5ee8d0; border-left: 2px solid var(--alt-teal); }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    background: var(--tag-bg);
+  }
+  .tag.acc { color: var(--acc-purple); border: 1px solid rgba(124,109,250,0.3); }
+  .tag.alt { color: var(--alt-teal); border: 1px solid rgba(0,201,167,0.3); }
+
+  /* PROGRESS */
+  .progress-bar {
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+  .progress-fill.acc { background: var(--acc-purple); }
+  .progress-fill.alt { background: var(--alt-teal); }
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 36px 20px 28px; }
+    .tabs { padding: 0 20px; }
+    .section { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Interview Prep · Final Rounds</div>
+  <h1>
+    <span class="acc">Accenture</span> &amp; <span class="alt">Altimetrik</span>
+  </h1>
+  <div class="hero-sub">Managerial / Final Round Q&A · Kandula Siva Nagaraju</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active acc" onclick="switchTab('acc')">🟣 Accenture · May 6</button>
+  <button class="tab-btn alt" onclick="switchTab('alt')">🟢 Altimetrik · Final</button>
+</div>
+
+<!-- ========== ACCENTURE ========== -->
+<div class="section active" id="tab-acc">
+  <div class="context-card acc">
+    <div class="ctx-icon">📍</div>
+    <div class="ctx-body">
+      <strong>Accenture – AI/ML Engineer · Final Round</strong>
+      <p>In-Location Virtual Interview (HDC3) · May 6, 2026 · 12:00 PM IST<br>
+      Tech cleared. This round = Tech + Managerial mix, not deep. Mostly validation + culture fit.</p>
+    </div>
+  </div>
+
+  <div class="progress-label" id="acc-progress-label">0 / 12 reviewed</div>
+  <div class="progress-bar"><div class="progress-fill acc" id="acc-bar"></div></div>
+
+  <div class="cat-label acc">— About You</div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Intro</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Walk me through your background quickly.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I'm a Gen AI Developer at Cognizant with 3+ years of experience. My core focus is building multi-agent AI systems using frameworks like Neuro SAN, LangChain, Google ADK, and Azure AI Foundry. I've worked on projects like OneC Enhanced Search — an agentic RAG pipeline for internal IT — and recently led evaluation pipelines for responsible AI metrics. I enjoy the engineering side of AI, not just prototyping but taking things to production.
+      <div class="tip acc">⚡ Keep it under 90 seconds. End with a forward-looking line about AI/ML at scale.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Motivation</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Why Accenture? Why now?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Accenture works with enterprise-scale AI problems across industries. At Cognizant I've been doing internal IT AI — I want exposure to diverse client-facing AI challenges. Accenture's AI practice is one of the most active globally and I want to contribute at that scale, especially in agentic and LLM engineering.
+      <div class="tip acc">⚡ Don't say "better salary" even if true. Keep it about growth and scale.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Motivation</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Why are you leaving Cognizant?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I've had great growth at Cognizant — built production AI systems, worked across multiple frameworks. But I'm looking for a broader canvas. I want to work on more varied client problems, faster iteration cycles, and a larger AI community. Accenture seems like that next step.
+      <div class="tip acc">⚡ Never badmouth Cognizant. Frame it as growth pull, not push.</div>
+    </div>
+  </div>
+
+  <div class="cat-label acc">— Managerial / Behavioral</div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Tell me about a time you handled a conflict in your team.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      During our OneC Enhanced Search project, there was a disagreement with a colleague on the chunking strategy for the RAG pipeline. They preferred fixed-size chunking for simplicity; I wanted semantic chunking for better retrieval accuracy. Instead of escalating, I ran a quick benchmark on both approaches with real queries. The data backed semantic chunking and we aligned on that. The key was keeping it objective, not personal.
+      <div class="tip acc">⚡ Use STAR format. Real project example always beats a hypothetical.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Tell me about a failure or mistake you made. What did you learn?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Early on in a Neuro SAN integration, I underestimated the complexity of private endpoint DNS resolution in Azure. I told the team it would take a day — it took nearly a week. I learned to always spike unknown infra before estimating, and since then I build in explicit investigation time in my task planning.
+      <div class="tip acc">⚡ They want accountability + lesson learned. Don't deflect blame.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">How do you handle working under pressure or tight deadlines?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I break the work into the smallest shippable pieces and communicate proactively. During our hackathon project I had to deliver an end-to-end Review-Interview Coordination Agent in a short window. I scoped it tightly — MVP first, enhancements later — and kept my stakeholder Nagarajan updated at each checkpoint. Shipping something solid beats missing deadline with something perfect.
+      <div class="tip acc">⚡ Mention communication to stakeholders — that's what managers care about.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Describe a situation where you had to learn something new very quickly.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      When Google ADK was released, I had to evaluate it quickly for a use case at work. I built a working incident response pipeline using SequentialAgent + LlmAgent sub-agents with GitHub MCP tools within a few days — just from docs and experimentation. I'm comfortable with 0-to-working in new frameworks fast.
+      <div class="tip acc">⚡ This shows self-learning ability — important for AI roles where things change fast.</div>
+    </div>
+  </div>
+
+  <div class="cat-label acc">— Role & Expectations</div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Role Fit</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Where do you see yourself in 2–3 years?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I want to grow into a senior AI architect role — someone who designs multi-agent systems at enterprise scale and bridges the gap between research advances and production deployments. I'm also interested in mentoring junior engineers as the team grows.
+      <div class="tip acc">⚡ Align your answer with what Accenture can offer. Don't say "own company" or "research lab".</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Practical</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">What is your notice period and expected CTC?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      <strong>Notice Period:</strong> State your actual notice period (typically 60–90 days at Cognizant). If asked if it's negotiable, say you can check but can't confirm immediately.<br><br>
+      <strong>CTC:</strong> Give a range based on your research. Don't lowball — you're an experienced Gen AI developer with production background. Say: "Based on the role and my experience, I'm looking at [X–Y LPA]. I'm open to discussion."
+      <div class="tip acc">⚡ Know your number before you walk in. Don't say "as per company norms."</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="acc">
+    <div class="tag acc">Role Fit</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Do you have any questions for us?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Ask at least 2:
+      <ul>
+        <li>What does the typical engagement look like for AI/ML Engineers in the first 3 months?</li>
+        <li>What AI frameworks and cloud platforms is the team primarily working with right now?</li>
+        <li>How does Accenture support upskilling in rapidly evolving areas like agentic AI?</li>
+      </ul>
+      <div class="tip acc">⚡ Never say "I have no questions." Asking shows genuine interest.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ALTIMETRIK ========== -->
+<div class="section" id="tab-alt">
+  <div class="context-card alt">
+    <div class="ctx-icon">📍</div>
+    <div class="ctx-body">
+      <strong>Altimetrik – Gen AI Engineer · Final Round</strong>
+      <p>L2 Technical cleared. Final round expected = Managerial / HR + Culture fit.<br>
+      Altimetrik is a digital engineering firm — they value ownership, speed, and product mindset.</p>
+    </div>
+  </div>
+
+  <div class="progress-label" id="alt-progress-label">0 / 12 reviewed</div>
+  <div class="progress-bar"><div class="progress-fill alt" id="alt-bar"></div></div>
+
+  <div class="cat-label alt">— About You</div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Intro</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Tell me about yourself and what excites you about Gen AI.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I'm a Gen AI Developer at Cognizant with 3+ years building production AI systems — multi-agent pipelines, RAG architectures, Azure AI integrations. What excites me about Gen AI is the pace at which agentic systems are evolving — the shift from single-model completions to orchestrated agents that reason and act. I've been hands-on with that shift and want to keep pushing its boundaries.
+      <div class="tip alt">⚡ Altimetrik is product-focused. Show enthusiasm + practical experience together.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Motivation</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Why Altimetrik?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Altimetrik works at the intersection of digital engineering and product delivery — which is where AI has the most real-world impact. I want to be part of a team that ships AI features that users actually experience, not just internal tooling. From what I've seen, Altimetrik has a strong engineering culture and moves fast, which suits how I work.
+      <div class="tip alt">⚡ Research Altimetrik's recent work before the interview. Mention a specific vertical if you can.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Motivation</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Why are you looking to move out of Cognizant?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Cognizant gave me solid foundations — I got to build real production AI systems. But I want to work in a more product-oriented environment, on things that are customer-facing. Altimetrik's model of being embedded with product teams is what I'm looking for at this stage of my career.
+      <div class="tip alt">⚡ Same rule — no badmouthing. Frame as "pull" not "push."</div>
+    </div>
+  </div>
+
+  <div class="cat-label alt">— Managerial / Behavioral</div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Tell me about a project you owned end-to-end.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      The OneC Enhanced Search project at Cognizant — I owned the full agentic pipeline: from designing the HOCON-based agent config in Neuro SAN, building the LangChain middleware layer for Azure OpenAI, setting up the vector search integration, to writing evaluation pipelines for tool accuracy. I was the single point of contact for both technical decisions and stakeholder updates with my tech lead Nagarajan.
+      <div class="tip alt">⚡ Ownership stories land well at product companies. Emphasize decisions you made, not just tasks you did.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">How do you prioritize when you have multiple tasks or deliverables?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I use impact vs effort as my primary filter. Tasks that unblock others or are on the critical path go first. I also communicate early if something will slip — I'd rather surface a risk 3 days early than miss a deadline silently. In a recent sprint I was juggling the evaluation pipeline build and an Azure connectivity issue simultaneously. I fixed the blocker (connectivity) first since it was blocking another teammate, then resumed the pipeline.
+      <div class="tip alt">⚡ Show you think in terms of team impact, not just personal workload.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Tell me about a time you disagreed with your manager or tech lead.</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      There was a discussion about which multi-agent framework to adopt for a new use case. My tech lead initially leaned toward a simpler single-agent approach for time reasons. I prepared a quick comparison of Neuro SAN vs LangChain for that specific use case, highlighting where multi-agent would save us time long-term. He agreed after reviewing it and we went with the multi-agent approach. I made sure to back my position with data, not just opinion.
+      <div class="tip alt">⚡ Show you can push back respectfully with evidence. Don't make the manager look wrong — make it collaborative.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Behavioral</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">How do you stay current in a fast-moving field like Gen AI?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      I follow key sources — Anthropic/OpenAI release notes, Hugging Face papers, and the LangChain/LlamaIndex changelogs directly. But more importantly, I build things. When Google ADK dropped I immediately prototyped an incident response agent. When MCP was introduced I got the Anthropic certification. Hands-on experimentation is the only way to really internalize something in this space.
+      <div class="tip alt">⚡ Mentioning real certifications (MCP, Claude Code) and real builds adds credibility.</div>
+    </div>
+  </div>
+
+  <div class="cat-label alt">— Role & Expectations</div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Role Fit</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">What kind of work environment do you thrive in?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Fast-paced, low-bureaucracy, high-ownership. I like environments where I can take a problem, design the solution, and ship it without too many approval loops. I also value teams that have strong technical culture — where people share learnings, debate architecture, and hold each other to a high bar. From what I know about Altimetrik that's the culture you run.
+      <div class="tip alt">⚡ Mirrors Altimetrik's own positioning. Feels genuine if you mean it.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Practical</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">What is your expected CTC and notice period?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      <strong>Notice Period:</strong> State actual (Cognizant is typically 60–90 days). Add: "I can discuss buyout options depending on the offer timeline."<br><br>
+      <strong>CTC:</strong> Quote a number range confidently. Know your current CTC and add 30–50% as target for a strong Gen AI profile. Don't undersell — you have production experience which is rare.
+      <div class="tip alt">⚡ Altimetrik is known to negotiate. Don't give a single number — give a range.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-section="alt">
+    <div class="tag alt">Role Fit</div>
+    <div class="qa-header" onclick="toggle(this)">
+      <span class="qa-q">Do you have any questions for us?</span>
+      <span class="qa-toggle">+</span>
+    </div>
+    <div class="qa-answer">
+      Ask 2–3 strong ones:
+      <ul>
+        <li>What does the Gen AI roadmap look like for the team I'd be joining?</li>
+        <li>How does the team balance exploration (R&D, new frameworks) with delivery commitments?</li>
+        <li>What does success look like in the first 6 months for this role?</li>
+      </ul>
+      <div class="tip alt">⚡ The "what does success look like" question always lands well — shows you're already thinking about delivering.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active', 'acc', 'alt'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    const btn = document.querySelector(`.tab-btn.${tab}`);
+    if (!btn) {
+      // fallback
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        if ((tab === 'acc' && i === 0) || (tab === 'alt' && i === 1)) {
+          b.classList.add('active', tab);
+        }
+      });
+    } else {
+      btn.classList.add('active', tab);
+    }
+  }
+
+  // Fix tab buttons since they don't have class initially for alt
+  document.querySelectorAll('.tab-btn')[1].classList.add('alt');
+
+  function toggle(header) {
+    const card = header.closest('.qa-card');
+    const wasOpen = card.classList.contains('open');
+    card.classList.toggle('open', !wasOpen);
+    updateProgress(card.dataset.section);
+  }
+
+  function updateProgress(section) {
+    const total = document.querySelectorAll(`.qa-card[data-section="${section}"]`).length;
+    const opened = document.querySelectorAll(`.qa-card[data-section="${section}"].open`).length;
+    const pct = Math.round((opened / total) * 100);
+    document.getElementById(`${section}-bar`).style.width = pct + '%';
+    document.getElementById(`${section}-progress-label`).textContent = `${opened} / ${total} reviewed`;
+  }
+</script>
+</body>
+</html>
